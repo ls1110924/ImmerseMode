@@ -37,7 +37,6 @@ public final class GlobalConfig {
     private GlobalConfig(@NonNull Activity activity) {
         Resources res = activity.getResources();
         mStatusBarHeight = ResourcesUtils.getDimensionSize(res, STATUS_BAR_HEIGHT_RES_NAME, "android", R.dimen.immerse_status_bar_height);
-        Color.TRANSPARENT
     }
 
     /**
