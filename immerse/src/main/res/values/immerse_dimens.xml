@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Android6.0以下系统默认的状态栏高度 -->
+    <dimen name="immerse_status_bar_height">25dp</dimen>
+
+</resources>

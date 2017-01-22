@@ -4,6 +4,8 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
+    resourcePrefix "immerse_"
+
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 25
