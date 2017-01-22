@@ -4,4 +4,20 @@
     <!-- Android6.0以下系统默认的状态栏高度 -->
     <dimen name="immerse_status_bar_height">25dp</dimen>
 
+    <!-- 修正ActionBarSize -->
+    <dimen name="immerse_actionbar_height">48dp</dimen>
+
+    <!-- 推荐的Toolbar的阴影高度 -->
+    <dimen name="immerse_toolbar_elevation">2dp</dimen>
+
+    <!-- 可用于ActionBar或者Toolbar上的标题或副标题文本尺寸 -->
+    <dimen name="immerse_actionbar_title_size">16sp</dimen>
+    <dimen name="immerse_actionbar_subtitle_size">14sp</dimen>
+
+    <!-- 小圆角 -->
+    <dimen name="immerse_radius_small">2dp</dimen>
+
+    <!-- 分割线高度 -->
+    <dimen name="immerse_divider_height">0.6dp</dimen>
+
 </resources>

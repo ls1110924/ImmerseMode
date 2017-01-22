@@ -2,6 +2,7 @@ package com.yunxian.immerse.manager;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import com.yunxian.immerse.R;
@@ -36,6 +37,7 @@ public final class GlobalConfig {
     private GlobalConfig(@NonNull Activity activity) {
         Resources res = activity.getResources();
         mStatusBarHeight = ResourcesUtils.getDimensionSize(res, STATUS_BAR_HEIGHT_RES_NAME, "android", R.dimen.immerse_status_bar_height);
+        Color.TRANSPARENT
     }
 
     /**
