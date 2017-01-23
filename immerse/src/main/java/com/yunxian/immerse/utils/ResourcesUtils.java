@@ -10,7 +10,7 @@ import android.text.TextUtils;
  * 资源相关工具类
  *
  * @author AShuai
- * @email lishuai.ls@alibaba-inc.com
+ * @email ls1110924@gmail.com
  * @date 17/1/21 下午7:58
  */
 public final class ResourcesUtils {

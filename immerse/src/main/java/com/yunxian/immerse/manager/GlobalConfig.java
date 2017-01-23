@@ -1,8 +1,8 @@
 package com.yunxian.immerse.manager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import com.yunxian.immerse.R;
@@ -12,37 +12,56 @@ import com.yunxian.immerse.utils.ResourcesUtils;
  * 全局配置参数类
  *
  * @author AShuai
- * @email lishuai.ls@alibaba-inc.com
+ * @email ls1110924@gmail.com
  * @date 17/1/21 下午7:50
  */
 public final class GlobalConfig {
 
     private static GlobalConfig INSTANCE = null;
 
-    public GlobalConfig getInstance(@NonNull Activity activity) {
+    /**
+     * 初始化方法，请在Application中调用该方法完成初始化
+     *
+     * @param context Context上下文对象
+     */
+    public static void init(@NonNull Context context) {
         if (INSTANCE == null) {
             synchronized (GlobalConfig.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new GlobalConfig(activity);
+                    INSTANCE = new GlobalConfig(context);
                 }
             }
         }
+    }
+
+    /**
+     * 获取单实例对象的方法
+     *
+     * @return Global单实例对象
+     * @throws IllegalStateException
+     */
+    @NonNull
+    public static GlobalConfig getInstance() throws IllegalStateException {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("Plz init first on Application onCreate()!");
+        }
         return INSTANCE;
     }
+
 
     private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
 
     private final int mStatusBarHeight;
 
-    private GlobalConfig(@NonNull Activity activity) {
-        Resources res = activity.getResources();
+    private GlobalConfig(@NonNull Context context) {
+        Resources res = context.getResources();
         mStatusBarHeight = ResourcesUtils.getDimensionSize(res, STATUS_BAR_HEIGHT_RES_NAME, "android", R.dimen.immerse_status_bar_height);
     }
 
     /**
      * 获取状态栏高度
      *
-     * @return
+     * @return 状态栏高度
      */
     public int getStatusBarHeight() {
         return mStatusBarHeight;
