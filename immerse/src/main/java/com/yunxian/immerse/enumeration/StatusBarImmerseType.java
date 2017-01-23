@@ -13,7 +13,7 @@ public enum StatusBarImmerseType {
      * 普通模式
      * <p>不限制SDK使用版本，但只有5.0系统可以改变状态栏颜色</p>
      */
-    NONE,
+    NORMAL,
 
     /**
      * 半透明模式，自带状态栏遮罩
