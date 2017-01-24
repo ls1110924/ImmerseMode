@@ -48,10 +48,7 @@ public class NormalImmerseMode implements IImmerseMode {
     @Override
     public void setStatusColor(@ColorInt int color) {
         Activity activity = mActivityRef.get();
-        if (activity == null) {
-            return;
-        }
-        if (SDK_INT >= LOLLIPOP) {
+        if (activity != null && SDK_INT >= LOLLIPOP) {
             activity.getWindow().setStatusBarColor(color);
         }
     }
@@ -59,11 +56,10 @@ public class NormalImmerseMode implements IImmerseMode {
     @Override
     public void setStatusColorRes(@ColorRes int colorRes) {
         Activity activity = mActivityRef.get();
-        if (activity == null) {
-            return;
+        if (activity != null) {
+            int color = ContextCompat.getColor(activity, colorRes);
+            setStatusColor(color);
         }
-        int color = ContextCompat.getColor(activity, colorRes);
-        setStatusColor(color);
     }
 
     @Override
