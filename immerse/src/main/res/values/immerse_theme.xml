@@ -28,12 +28,10 @@
     </style>
 
     <style name="immerse_ActionBarTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="textSize">@dimen/immerse_actionbar_title_size</item>
         <item name="android:textSize">@dimen/immerse_actionbar_title_size</item>
     </style>
 
     <style name="immerse_ActionBarSubTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
-        <item name="textSize">@dimen/immerse_actionbar_subtitle_size</item>
         <item name="android:textSize">@dimen/immerse_actionbar_subtitle_size</item>
     </style>
 
@@ -50,12 +48,10 @@
     </style>
 
     <style name="immerse_ToolbarTitleStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="textSize">@dimen/immerse_actionbar_title_size</item>
         <item name="android:textSize">@dimen/immerse_actionbar_title_size</item>
     </style>
 
     <style name="immerse_ToolbarSubTitleStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="textSize">@dimen/immerse_actionbar_subtitle_size</item>
         <item name="android:textSize">@dimen/immerse_actionbar_subtitle_size</item>
     </style>
 
