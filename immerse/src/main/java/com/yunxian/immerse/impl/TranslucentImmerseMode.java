@@ -23,7 +23,6 @@ import java.lang.ref.SoftReference;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 import static android.os.Build.VERSION_CODES.KITKAT;
-import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * 半透明状态栏模式下的实现
@@ -34,31 +33,31 @@ import static android.os.Build.VERSION.SDK_INT;
  * @email ls1110924@gmail.com
  * @date 17/1/24 下午3:26
  */
+@TargetApi(KITKAT)
 public class TranslucentImmerseMode implements IImmerseMode {
-
-    private final GlobalConfig mGlobalConfig = GlobalConfig.getInstance();
 
     private final SoftReference<Activity> mActivityRef;
 
-    @Nullable
-    private View mStatusBarView;
+    private final View mStatusBarView;
 
-    public TranslucentImmerseMode(@NonNull Activity activity) {
+    /**
+     * 构造方法
+     *
+     * @param activity   待应用沉浸模式的Activity
+     * @param fullScreen true为需要全屏显示内容，即用户自己的内容需要延伸到状态栏之下；false表示用户内容需要正常布局再状态栏之外
+     */
+    public TranslucentImmerseMode(@NonNull Activity activity, boolean fullScreen) {
         mActivityRef = new SoftReference<>(activity);
         Window window = activity.getWindow();
-        if (SDK_INT >= KITKAT) {
-            WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
-            WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
-            setupStatusBarView(activity);
-        }
+        WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
+        WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
+        mStatusBarView = setupStatusBarView(activity, fullScreen);
     }
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        if (mStatusBarView != null) {
-            mStatusBarView.setBackgroundColor(color);
-        }
+        mStatusBarView.setBackgroundColor(color);
     }
 
     @Override
@@ -86,16 +85,21 @@ public class TranslucentImmerseMode implements IImmerseMode {
         return true;
     }
 
-    @TargetApi(KITKAT)
-    private void setupStatusBarView(@NonNull Activity activity) {
-        mStatusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mGlobalConfig.getStatusBarHeight());
+    @NonNull
+    private View setupStatusBarView(@NonNull Activity activity, boolean fullScreen) {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
-        contentViewGroup.addView(mStatusBarView, params);
         View userView = contentViewGroup.getChildAt(0);
-        if (userView != null) {
-            userView.setFitsSystemWindows(true);
+        if (userView == null) {
+            throw new IllegalStateException("Plz invode setContentView() method first!");
         }
+
+        View statusBarView = new View(activity);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, GlobalConfig.getInstance().getStatusBarHeight());
+        contentViewGroup.addView(statusBarView, params);
+
+        userView.setFitsSystemWindows(!fullScreen);
+
+        return statusBarView;
     }
 
 }

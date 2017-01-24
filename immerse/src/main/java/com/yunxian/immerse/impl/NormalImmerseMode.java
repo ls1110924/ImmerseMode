@@ -24,7 +24,7 @@ import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * 常规模式下的实现
- * <p>仅在5.0以上系统可设置状态栏颜色</p>
+ * <p>不限制SDK版本，但仅在5.0以上系统可设置状态栏颜色</p>
  *
  * @author AShuai
  * @email ls1110924@gmail.com
