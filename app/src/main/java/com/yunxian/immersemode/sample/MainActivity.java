@@ -1,15 +1,49 @@
 package com.yunxian.immersemode.sample;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+
+    private CommonCallbackListener mCommonListener = new CommonCallbackListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.helloworld).setBackgroundColor();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        findViewById(R.id.normal_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.translucent_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.transparent_mode).setOnClickListener(mCommonListener);
     }
+
+
+    private class CommonCallbackListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.normal_mode: {
+                    Intent intent = new Intent(MainActivity.this, NormalActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.translucent_mode: {
+                    break;
+                }
+                case R.id.transparent_mode: {
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    }
+
 }
