@@ -15,9 +15,9 @@ import com.yunxian.immersemode.sample.widget.ExScrollView;
 /**
  * @author AShuai
  * @email ls1110924@gmail.com
- * @date 17/1/27 下午8:56
+ * @date 17/1/27 下午10:49
  */
-public class TranslucentFullActivity extends AppCompatActivity {
+public class TransparentFullActivity extends AppCompatActivity {
 
     private CommonCallbackListener mCommonListener = new CommonCallbackListener();
 
@@ -47,7 +47,7 @@ public class TranslucentFullActivity extends AppCompatActivity {
         mImgHeader = (ImageView) findViewById(R.id.img_header);
 
         mImmerseHelper = new ImmerseHelper(this, StatusBarImmerseType.TRANSLUCENT,
-                StatusBarImmerseType.TRANSLUCENT, true);
+                StatusBarImmerseType.TRANSPARENT, true);
         mImmerseHelper.setStatusColor(Color.TRANSPARENT);
 
         ExScrollView scrollView = (ExScrollView) findViewById(R.id.scroll_view);
@@ -88,5 +88,4 @@ public class TranslucentFullActivity extends AppCompatActivity {
             mToolbar.setBackgroundColor(color);
         }
     }
-
 }

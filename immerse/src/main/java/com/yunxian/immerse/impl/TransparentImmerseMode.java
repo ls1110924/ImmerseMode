@@ -56,8 +56,9 @@ public class TransparentImmerseMode implements IImmerseMode {
 
         if (fullScreen) {
             window.setStatusBarColor(Color.TRANSPARENT);
+        } else {
+            setupContentView(activity);
         }
-        setupContentView(activity);
     }
 
     @Override

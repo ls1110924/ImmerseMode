@@ -6,7 +6,7 @@ import android.widget.ScrollView;
 
 /**
  * @author AShuai
- * @email lishuai.ls@alibaba-inc.com
+ * @email ls1110924@gmail.com
  * @date 17/1/27 下午10:01
  */
 public class ExScrollView extends ScrollView {

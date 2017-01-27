@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.transparent_full_mode: {
-                    Intent intent = new Intent(MainActivity.this, TransparentActivity.class);
+                    Intent intent = new Intent(MainActivity.this, TransparentFullActivity.class);
                     startActivity(intent);
                     break;
                 }
