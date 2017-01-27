@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
@@ -19,7 +20,7 @@ import com.yunxian.immerse.utils.WindowUtils;
 import java.lang.ref.SoftReference;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
+import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 import static android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
@@ -51,13 +52,12 @@ public class TransparentImmerseMode implements IImmerseMode {
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS | FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_FULLSCREEN);
+        window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         if (fullScreen) {
             window.setStatusBarColor(Color.TRANSPARENT);
-        } else {
-            setupContentView(activity);
         }
+        setupContentView(activity);
     }
 
     @Override
@@ -88,6 +88,7 @@ public class TransparentImmerseMode implements IImmerseMode {
 
     private void setupContentView(@NonNull Activity activity) {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
-        contentViewGroup.setFitsSystemWindows(true);
+        View userView = contentViewGroup.getChildAt(0);
+        userView.setFitsSystemWindows(true);
     }
 }
