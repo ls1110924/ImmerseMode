@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.translucent_mode: {
+                    Intent intent = new Intent(MainActivity.this, TranslucentActivity.class);
+                    startActivity(intent);
                     break;
                 }
                 case R.id.transparent_mode: {
