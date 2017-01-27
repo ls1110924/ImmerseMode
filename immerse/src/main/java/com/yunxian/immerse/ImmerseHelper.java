@@ -29,10 +29,16 @@ public final class ImmerseHelper {
     private final IImmerseMode immerseMode;
 
     public ImmerseHelper(@NonNull Activity activity) {
-        this(activity, StatusBarImmerseType.NORMAL, StatusBarImmerseType.NORMAL);
+        this(activity, StatusBarImmerseType.NORMAL, StatusBarImmerseType.NORMAL, false);
     }
 
-    public ImmerseHelper(@NonNull Activity activity, @NonNull StatusBarImmerseType levelInKK, @NonNull StatusBarImmerseType levelInL) {
+    public ImmerseHelper(@NonNull Activity activity, @NonNull StatusBarImmerseType levelInKK,
+                         @NonNull StatusBarImmerseType levelInL) {
+        this(activity, levelInKK, levelInL, false);
+    }
+
+    public ImmerseHelper(@NonNull Activity activity, @NonNull StatusBarImmerseType levelInKK,
+                         @NonNull StatusBarImmerseType levelInL, boolean fullScreen) {
         if (SDK_INT < KITKAT) {
             immerseMode = new NormalImmerseMode(activity);
         } else if (SDK_INT < LOLLIPOP) {
@@ -41,7 +47,7 @@ public final class ImmerseHelper {
                     immerseMode = new NormalImmerseMode(activity);
                     break;
                 case TRANSLUCENT:
-                    immerseMode = new TranslucentImmerseMode(activity, false);
+                    immerseMode = new TranslucentImmerseMode(activity, fullScreen);
                     break;
                 case TRANSPARENT:
                     throw new IllegalAccessError("Kitkat don't support transparent mode!");
@@ -54,10 +60,10 @@ public final class ImmerseHelper {
                     immerseMode = new NormalImmerseMode(activity);
                     break;
                 case TRANSLUCENT:
-                    immerseMode = new TranslucentImmerseMode(activity, false);
+                    immerseMode = new TranslucentImmerseMode(activity, fullScreen);
                     break;
                 case TRANSPARENT:
-                    immerseMode = new TransparentImmerseMode(activity, false);
+                    immerseMode = new TransparentImmerseMode(activity, fullScreen);
                     break;
                 default:
                     throw new IllegalArgumentException("Plz set correct parameter!");
