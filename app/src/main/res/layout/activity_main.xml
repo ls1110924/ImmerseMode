@@ -35,9 +35,21 @@
         android:text="半透明模式" />
 
     <Button
+        android:id="@+id/translucent_full_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="半透明全屏模式" />
+
+    <Button
         android:id="@+id/transparent_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="透明模式" />
+
+    <Button
+        android:id="@+id/transparent_full_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="透明全屏模式(仅限5.0及以上)" />
 
 </LinearLayout>

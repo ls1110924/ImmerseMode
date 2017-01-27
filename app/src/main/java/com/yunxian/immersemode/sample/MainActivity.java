@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.normal_mode).setOnClickListener(mCommonListener);
         findViewById(R.id.translucent_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.translucent_full_mode).setOnClickListener(mCommonListener);
         findViewById(R.id.transparent_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.transparent_full_mode).setOnClickListener(mCommonListener);
     }
 
 
@@ -39,7 +41,17 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
+                case R.id.translucent_full_mode: {
+                    Intent intent = new Intent(MainActivity.this, TranslucentFullActivity.class);
+                    startActivity(intent);
+                    break;
+                }
                 case R.id.transparent_mode: {
+                    Intent intent = new Intent(MainActivity.this, TransparentActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.transparent_full_mode: {
                     Intent intent = new Intent(MainActivity.this, TransparentActivity.class);
                     startActivity(intent);
                     break;
