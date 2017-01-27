@@ -26,6 +26,9 @@
         <activity
             android:name=".TranslucentActivity"
             android:theme="@style/CUNTheme.NoActionBar" />
+        <activity
+            android:name=".TransparentActivity"
+            android:theme="@style/CUNTheme.NoActionBar" />
     </application>
 
 </manifest>

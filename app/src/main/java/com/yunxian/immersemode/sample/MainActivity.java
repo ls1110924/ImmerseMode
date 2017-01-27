@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.transparent_mode: {
+                    Intent intent = new Intent(MainActivity.this, TransparentActivity.class);
+                    startActivity(intent);
                     break;
                 }
                 default:
