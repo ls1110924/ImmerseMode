@@ -17,6 +17,6 @@
         android:id="@+id/helloworld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="普通模式" />
 
 </LinearLayout>
