@@ -35,6 +35,10 @@
         <activity
             android:name=".TransparentFullActivity"
             android:theme="@style/CUNTheme.NoActionBar" />
+        <activity
+            android:name=".FullInputActivity"
+            android:theme="@style/CUNTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
     </application>
 
 </manifest>

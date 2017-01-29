@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.translucent_full_mode).setOnClickListener(mCommonListener);
         findViewById(R.id.transparent_mode).setOnClickListener(mCommonListener);
         findViewById(R.id.transparent_full_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.full_input_mode).setOnClickListener(mCommonListener);
     }
 
 
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.transparent_full_mode: {
                     Intent intent = new Intent(MainActivity.this, TransparentFullActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.full_input_mode: {
+                    Intent intent = new Intent(MainActivity.this, FullInputActivity.class);
                     startActivity(intent);
                     break;
                 }
