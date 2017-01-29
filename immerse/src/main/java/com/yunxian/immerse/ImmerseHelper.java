@@ -20,6 +20,20 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 /**
  * 状态栏沉浸工具类
+ * <p>
+ *     本工具类主要提供三种类型设置参数，分别为非全屏，全屏不调整adjustResize，全屏且调整adjustResize
+ *     <ol>
+ *         <li>对于非全屏类型：无任何问题，用户内容正常布局，且不影响状态栏着色。
+ *         本工具类已占用fitSystemWindow属性，故用户不必使用</li>
+ *         <li>对于全屏不调整adjustResize类型：用户内容布局延伸至状态栏之下，
+ *         用户自行处理状态栏之下的内容以及fitSystemWindow属性的应用。
+ *         注：页面不可有EditText元素，否则会影响软键盘弹出。</li>
+ *         <li>对于全屏且调整adjustResize类型：用户内容布局延伸至状态栏之下，
+ *         用户可自行处理状态栏之下的内容，但该工具类已占用fitSystemWindow属性，用户不必使用。
+ *         如需使用，则需调用{@link #setOnInsetsChangeListener(boolean, ConsumeInsetsFrameLayout.OnInsetsChangeListener)}
+ *         方法进行监听处理</li>
+ *     </ol>
+ * </p>
  *
  * @author AShuai
  * @email ls1110924@gmail.com
@@ -43,6 +57,16 @@ public final class ImmerseHelper {
         this(activity, levelInKK, levelInL, fullScreen, false);
     }
 
+    /**
+     * 沉浸模式的助手工具类
+     *
+     * @param activity     待应用沉浸模式的Activity
+     * @param levelInKK    应用于4.4版本的模式
+     * @param levelInL     应用于5.0及一上版本的模式
+     * @param fullScreen   true为全屏，用户内容布局延伸到状态栏之下；
+     *                     否则用户内容正常布局，但本工具类仍然提供方法对状态栏进行着色
+     * @param adjustResize true当全屏时是否处理软键盘的AdjustResize问题
+     */
     public ImmerseHelper(@NonNull Activity activity, @NonNull StatusBarImmerseType levelInKK,
                          @NonNull StatusBarImmerseType levelInL, boolean fullScreen, boolean adjustResize) {
         if (SDK_INT < KITKAT) {
