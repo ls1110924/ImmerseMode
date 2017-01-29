@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 消费Insets的自定义属性 -->
+    <declare-styleable name="immerse_ConsumeInsetsLayout">
+        <attr name="immerse_consumeInsets" format="boolean" />
+    </declare-styleable>
+
+</resources>

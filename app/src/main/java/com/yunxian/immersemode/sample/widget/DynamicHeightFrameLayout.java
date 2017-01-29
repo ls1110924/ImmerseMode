@@ -44,7 +44,7 @@ public class DynamicHeightFrameLayout extends FrameLayout {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             int newMeaHeight = (int) (getMeasuredWidth() * mHeightWidthRatio);
             int newMeasureSpec = MeasureSpec.makeMeasureSpec(newMeaHeight, MeasureSpec.EXACTLY);
-            super.onMeasure(newMeasureSpec, newMeasureSpec);
+            super.onMeasure(widthMeasureSpec, newMeasureSpec);
         }
     }
 
