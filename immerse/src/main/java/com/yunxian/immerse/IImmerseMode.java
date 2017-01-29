@@ -6,6 +6,8 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 
+import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
+
 /**
  * 半沉浸模式接口类
  *
@@ -44,5 +46,13 @@ public interface IImmerseMode {
      * @return 设置成功，返回true；否则返回false
      */
     boolean setStatusDrawableRes(@DrawableRes int drawableRes);
+
+    /**
+     * 设置Insets监听器，以监听fitSystemWindow事件
+     *
+     * @param operation true为注册，false为反注册
+     * @param listener  Insets监听器
+     */
+    void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener);
 
 }

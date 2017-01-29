@@ -38,6 +38,7 @@ public class FullInputActivity extends AppCompatActivity {
 
         ImmerseHelper immerseHelper = new ImmerseHelper(this, StatusBarImmerseType.TRANSLUCENT,
                 StatusBarImmerseType.TRANSPARENT, true, true);
+        immerseHelper.setOnInsetsChangeListener(true, mCommonListener);
         immerseHelper.setStatusColor(Color.TRANSPARENT);
     }
 

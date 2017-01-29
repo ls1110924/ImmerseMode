@@ -40,6 +40,9 @@ public class TransparentImmerseMode implements IImmerseMode {
 
     private final SoftReference<Activity> mActivityRef;
 
+    @Nullable
+    private ConsumeInsetsFrameLayout mNewUserView;
+
     /**
      * 构造方法
      *
@@ -93,6 +96,15 @@ public class TransparentImmerseMode implements IImmerseMode {
         return false;
     }
 
+    @Override
+    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
+        if (mNewUserView != null && operation) {
+            mNewUserView.addOnInsetsChangeListener(listener);
+        } else if (mNewUserView != null) {
+            mNewUserView.removeOnInsetsChangeListener(listener);
+        }
+    }
+
     private void setupContentView(@NonNull Activity activity) {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
         View userView = contentViewGroup.getChildAt(0);
@@ -105,12 +117,12 @@ public class TransparentImmerseMode implements IImmerseMode {
         if (userView == null) {
             throw new IllegalStateException("Plz invode setContentView() method first!");
         }
-        ConsumeInsetsFrameLayout newUserView = new ConsumeInsetsFrameLayout(activity);
-        newUserView.setConsumeInsets(true);
+        mNewUserView = new ConsumeInsetsFrameLayout(activity);
+        mNewUserView.setConsumeInsets(true);
         contentViewGroup.removeView(userView);
-        newUserView.addView(userView);
-        contentViewGroup.addView(newUserView, 0);
-        newUserView.setFitsSystemWindows(true);
+        mNewUserView.addView(userView);
+        contentViewGroup.addView(mNewUserView, 0);
+        mNewUserView.setFitsSystemWindows(true);
     }
 
 }

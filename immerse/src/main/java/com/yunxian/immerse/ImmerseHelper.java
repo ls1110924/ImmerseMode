@@ -12,6 +12,7 @@ import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immerse.impl.NormalImmerseMode;
 import com.yunxian.immerse.impl.TranslucentImmerseMode;
 import com.yunxian.immerse.impl.TransparentImmerseMode;
+import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.KITKAT;
@@ -112,6 +113,16 @@ public final class ImmerseHelper {
      */
     public boolean setStatusDrawableRes(@DrawableRes int drawableRes) {
         return immerseMode.setStatusDrawableRes(drawableRes);
+    }
+
+    /**
+     * 设置Insets监听器，以监听fitSystemWindow事件
+     *
+     * @param operation true为注册，false为反注册
+     * @param listener  Insets监听器
+     */
+    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
+        immerseMode.setOnInsetsChangeListener(operation, listener);
     }
 
 }

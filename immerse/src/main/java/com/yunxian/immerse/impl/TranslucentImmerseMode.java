@@ -41,6 +41,9 @@ public class TranslucentImmerseMode implements IImmerseMode {
 
     private final View mStatusBarView;
 
+    @Nullable
+    private ConsumeInsetsFrameLayout mNewUserView;
+
     /**
      * 构造方法
      *
@@ -88,6 +91,15 @@ public class TranslucentImmerseMode implements IImmerseMode {
         return true;
     }
 
+    @Override
+    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
+        if (mNewUserView != null && operation) {
+            mNewUserView.addOnInsetsChangeListener(listener);
+        } else if (mNewUserView != null) {
+            mNewUserView.removeOnInsetsChangeListener(listener);
+        }
+    }
+
     // 对于非全屏模式，工具类帮忙处理fitSystemWindow；
     // 对于全屏模式且非adjustResize时，需用户自行处理fitSystemWindow
     // 对于全屏模式且adjustResize时，工具类嵌套一个修复bug的ConsumeInsets布局且占用fitSystemWindow，
@@ -102,12 +114,12 @@ public class TranslucentImmerseMode implements IImmerseMode {
 
         if (fullScreen) {
             if (adjustResize) {
-                ConsumeInsetsFrameLayout newUserView = new ConsumeInsetsFrameLayout(activity);
-                newUserView.setConsumeInsets(true);
+                mNewUserView = new ConsumeInsetsFrameLayout(activity);
+                mNewUserView.setConsumeInsets(true);
                 contentViewGroup.removeView(userView);
-                newUserView.addView(userView);
-                contentViewGroup.addView(newUserView, 0);
-                newUserView.setFitsSystemWindows(true);
+                mNewUserView.addView(userView);
+                contentViewGroup.addView(mNewUserView, 0);
+                mNewUserView.setFitsSystemWindows(true);
             } else {
                 userView.setFitsSystemWindows(false);
             }
@@ -121,6 +133,5 @@ public class TranslucentImmerseMode implements IImmerseMode {
 
         return statusBarView;
     }
-
 
 }

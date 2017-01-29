@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.yunxian.immerse.IImmerseMode;
 import com.yunxian.immerse.utils.WindowUtils;
+import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 import java.lang.ref.SoftReference;
 
@@ -70,5 +71,9 @@ public class NormalImmerseMode implements IImmerseMode {
     @Override
     public boolean setStatusDrawableRes(@DrawableRes int drawableRes) {
         return false;
+    }
+
+    @Override
+    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
     }
 }
