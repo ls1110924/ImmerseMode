@@ -17,6 +17,7 @@ import com.yunxian.immerse.IImmerseMode;
 import com.yunxian.immerse.manager.GlobalConfig;
 import com.yunxian.immerse.utils.DrawableUtils;
 import com.yunxian.immerse.utils.WindowUtils;
+import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 import java.lang.ref.SoftReference;
 
@@ -43,16 +44,18 @@ public class TranslucentImmerseMode implements IImmerseMode {
     /**
      * 构造方法
      *
-     * @param activity   待应用沉浸模式的Activity
-     * @param fullScreen true为需要全屏显示内容，即用户自己的内容需要延伸到状态栏之下；false表示用户内容需要正常布局再状态栏之外
+     * @param activity     待应用沉浸模式的Activity
+     * @param fullScreen   true为需要全屏显示内容，即用户自己的内容需要延伸到状态栏之下；
+     *                     false表示用户内容需要正常布局再状态栏之外
+     * @param adjustResize true为适配包含EditText的沉浸Activity，仅在fullScreen为true时有效
      */
-    public TranslucentImmerseMode(@NonNull Activity activity, boolean fullScreen) {
+    public TranslucentImmerseMode(@NonNull Activity activity, boolean fullScreen, boolean adjustResize) {
         mActivityRef = new SoftReference<>(activity);
         Window window = activity.getWindow();
 
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
-        mStatusBarView = setupStatusBarView(activity, fullScreen);
+        mStatusBarView = setupStatusBarView(activity, fullScreen, adjustResize);
     }
 
     @Override
@@ -85,21 +88,39 @@ public class TranslucentImmerseMode implements IImmerseMode {
         return true;
     }
 
+    // 对于非全屏模式，工具类帮忙处理fitSystemWindow；
+    // 对于全屏模式且非adjustResize时，需用户自行处理fitSystemWindow
+    // 对于全屏模式且adjustResize时，工具类嵌套一个修复bug的ConsumeInsets布局且占用fitSystemWindow，
+    // 用户不必处理，但用户需要监听时，需设置OnInsetsChangeListener来监听
     @NonNull
-    private View setupStatusBarView(@NonNull Activity activity, boolean fullScreen) {
+    private View setupStatusBarView(@NonNull Activity activity, boolean fullScreen, boolean adjustResize) {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
         View userView = contentViewGroup.getChildAt(0);
         if (userView == null) {
             throw new IllegalStateException("Plz invode setContentView() method first!");
         }
 
+        if (fullScreen) {
+            if (adjustResize) {
+                ConsumeInsetsFrameLayout newUserView = new ConsumeInsetsFrameLayout(activity);
+                newUserView.setConsumeInsets(true);
+                contentViewGroup.removeView(userView);
+                newUserView.addView(userView);
+                contentViewGroup.addView(newUserView, 0);
+                newUserView.setFitsSystemWindows(true);
+            } else {
+                userView.setFitsSystemWindows(false);
+            }
+        } else {
+            userView.setFitsSystemWindows(true);
+        }
+
         View statusBarView = new View(activity);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, GlobalConfig.getInstance().getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
 
-        userView.setFitsSystemWindows(!fullScreen);
-
         return statusBarView;
     }
+
 
 }

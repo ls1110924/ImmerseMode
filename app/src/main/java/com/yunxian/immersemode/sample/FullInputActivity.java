@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.yunxian.immerse.ImmerseHelper;
+import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 /**
@@ -33,6 +35,10 @@ public class FullInputActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(Color.TRANSPARENT);
+
+        ImmerseHelper immerseHelper = new ImmerseHelper(this, StatusBarImmerseType.TRANSLUCENT,
+                StatusBarImmerseType.TRANSPARENT, true, true);
+        immerseHelper.setStatusColor(Color.TRANSPARENT);
     }
 
     @Override

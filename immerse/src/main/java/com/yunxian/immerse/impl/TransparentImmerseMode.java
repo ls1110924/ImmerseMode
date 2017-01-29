@@ -16,6 +16,7 @@ import android.view.Window;
 
 import com.yunxian.immerse.IImmerseMode;
 import com.yunxian.immerse.utils.WindowUtils;
+import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 import java.lang.ref.SoftReference;
 
@@ -42,10 +43,12 @@ public class TransparentImmerseMode implements IImmerseMode {
     /**
      * 构造方法
      *
-     * @param activity   待沉浸的Activity对象
-     * @param fullScreen 是否全屏。true为全屏，用户内容需要延伸到状态栏之下；false为正常模式，用户内容需要布局在状态栏之外
+     * @param activity     待沉浸的Activity对象
+     * @param fullScreen   是否全屏。true为全屏，用户内容需要延伸到状态栏之下；
+     *                     false为正常模式，用户内容需要布局在状态栏之外
+     * @param adjustResize true为适配包含EditText的沉浸Activity，仅在fullScreen为true时有效
      */
-    public TransparentImmerseMode(@NonNull Activity activity, boolean fullScreen) {
+    public TransparentImmerseMode(@NonNull Activity activity, boolean fullScreen, boolean adjustResize) {
         mActivityRef = new SoftReference<>(activity);
 
         Window window = activity.getWindow();
@@ -56,6 +59,9 @@ public class TransparentImmerseMode implements IImmerseMode {
 
         if (fullScreen) {
             window.setStatusBarColor(Color.TRANSPARENT);
+            if (adjustResize) {
+                setupAdjustResize(activity);
+            }
         } else {
             setupContentView(activity);
         }
@@ -92,4 +98,19 @@ public class TransparentImmerseMode implements IImmerseMode {
         View userView = contentViewGroup.getChildAt(0);
         userView.setFitsSystemWindows(true);
     }
+
+    private void setupAdjustResize(@NonNull Activity activity) {
+        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+        View userView = contentViewGroup.getChildAt(0);
+        if (userView == null) {
+            throw new IllegalStateException("Plz invode setContentView() method first!");
+        }
+        ConsumeInsetsFrameLayout newUserView = new ConsumeInsetsFrameLayout(activity);
+        newUserView.setConsumeInsets(true);
+        contentViewGroup.removeView(userView);
+        newUserView.addView(userView);
+        contentViewGroup.addView(newUserView, 0);
+        newUserView.setFitsSystemWindows(true);
+    }
+
 }
