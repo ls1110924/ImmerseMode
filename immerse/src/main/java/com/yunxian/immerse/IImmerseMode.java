@@ -47,6 +47,14 @@ public interface IImmerseMode {
      */
     boolean setStatusDrawableRes(@DrawableRes int drawableRes);
 
+    void setNavigationColor(@ColorInt int color);
+
+    void setNavigationColorRes(@ColorRes int colorRes);
+
+    boolean setNavigationDrawable(@Nullable Drawable drawable);
+
+    boolean setNavigationDrawableRes(@DrawableRes int drawableRes);
+
     /**
      * 设置Insets监听器，以监听fitSystemWindow事件
      *

@@ -74,6 +74,33 @@ public class NormalImmerseMode implements IImmerseMode {
     }
 
     @Override
+    public void setNavigationColor(@ColorInt int color) {
+        Activity activity = mActivityRef.get();
+        if (activity != null && SDK_INT >= LOLLIPOP) {
+            activity.getWindow().setNavigationBarColor(color);
+        }
+    }
+
+    @Override
+    public void setNavigationColorRes(@ColorRes int colorRes) {
+        Activity activity = mActivityRef.get();
+        if (activity != null) {
+            int color = ContextCompat.getColor(activity, colorRes);
+            setNavigationColor(color);
+        }
+    }
+
+    @Override
+    public boolean setNavigationDrawable(@Nullable Drawable drawable) {
+        return false;
+    }
+
+    @Override
+    public boolean setNavigationDrawableRes(@DrawableRes int drawableRes) {
+        return false;
+    }
+
+    @Override
     public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
     }
 }

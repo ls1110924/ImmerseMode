@@ -92,6 +92,26 @@ public class TranslucentImmerseMode implements IImmerseMode {
     }
 
     @Override
+    public void setNavigationColor(@ColorInt int color) {
+
+    }
+
+    @Override
+    public void setNavigationColorRes(@ColorRes int colorRes) {
+
+    }
+
+    @Override
+    public boolean setNavigationDrawable(@Nullable Drawable drawable) {
+        return false;
+    }
+
+    @Override
+    public boolean setNavigationDrawableRes(@DrawableRes int drawableRes) {
+        return false;
+    }
+
+    @Override
     public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
         if (mNewUserView != null && operation) {
             mNewUserView.addOnInsetsChangeListener(listener);
