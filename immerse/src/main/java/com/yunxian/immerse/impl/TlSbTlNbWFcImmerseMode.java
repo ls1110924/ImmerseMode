@@ -29,14 +29,14 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATIO
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 
 /**
- * 半透明状态栏半透明导航栏
+ * 半透明状态栏半透明导航栏且内容全屏模式
  *
  * @author AShuai
  * @email ls1110924@gmail.com
- * @date 17/1/31 下午5:19
+ * @date 2017/2/2 17:49
  */
 @TargetApi(KITKAT)
-public class TlSbTlNbImmerseMode implements IImmerseMode {
+public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
 
     private final SoftReference<Activity> mActivityRef;
 
@@ -48,7 +48,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
     @Nullable
     private final View mNavigationBarView;
 
-    public TlSbTlNbImmerseMode(@NonNull Activity activity) {
+    public TlSbTlNbWFcImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
 
         Window window = activity.getWindow();
@@ -137,7 +137,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
             throw new IllegalStateException("Plz invode setContentView() method first!");
         }
 
-        userView.setFitsSystemWindows(true);
+        userView.setFitsSystemWindows(false);
 
         View statusBarView = new View(activity);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, GlobalConfig.getInstance().getStatusBarHeight());
@@ -169,5 +169,4 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         }
         return navigationBarView;
     }
-
 }
