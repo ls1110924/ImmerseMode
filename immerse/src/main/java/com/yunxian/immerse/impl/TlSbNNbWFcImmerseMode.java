@@ -2,6 +2,7 @@ package com.yunxian.immerse.impl;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -49,6 +50,8 @@ public class TlSbNNbWFcImmerseMode implements IImmerseMode {
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
         mStatusBarView = setupStatusBarView(activity);
+
+        mStatusBarView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override

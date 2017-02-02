@@ -19,70 +19,77 @@ import android.widget.FrameLayout;
 import com.yunxian.immerse.IImmerseMode;
 import com.yunxian.immerse.manager.ActivityConfig;
 import com.yunxian.immerse.manager.GlobalConfig;
-import com.yunxian.immerse.utils.DrawableUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 import java.lang.ref.SoftReference;
 
-import static android.os.Build.VERSION_CODES.KITKAT;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
+import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+import static android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 
 /**
- * 半透明状态栏半透明导航栏且内容全屏模式
+ * 全透明状态栏半透明导航栏的沉浸模式
  *
  * @author AShuai
  * @email ls1110924@gmail.com
- * @date 2017/2/2 17:49
+ * @date 2017/2/2 17:54
  */
-@TargetApi(KITKAT)
-public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
+@TargetApi(LOLLIPOP)
+public class TpSbTlNbImmerseMode implements IImmerseMode {
 
     private final SoftReference<Activity> mActivityRef;
 
     private final ActivityConfig mActivityConfig;
 
-    private final View mStatusBarView;
-
-    // 当一些手机没有导航栏时，该对象为空
+    // 兼容性StatusBar，用作设置Drawable时兼容处理使用
+    private final View mCompatStatusBarView;
     @Nullable
-    private final View mNavigationBarView;
+    private final View mCompatNavigationBarView;
 
-    public TlSbTlNbWFcImmerseMode(@NonNull Activity activity) {
+    public TpSbTlNbImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
 
         Window window = activity.getWindow();
-        WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
-        WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
+        WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
+        WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS | FLAG_TRANSLUCENT_NAVIGATION);
+
+        window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         mActivityConfig = new ActivityConfig(activity);
-        mStatusBarView = setupStatusBarView(activity);
-        mNavigationBarView = setupNavigationBarView(activity);
+        mCompatStatusBarView = setupContentViewAndStatusBarView(activity);
+        mCompatNavigationBarView = setupNavigationBarView(activity);
 
-        mStatusBarView.setBackgroundColor(Color.TRANSPARENT);
-        if (mNavigationBarView != null) {
-            mNavigationBarView.setBackgroundColor(Color.TRANSPARENT);
-        }
+        mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mStatusBarView.setBackgroundColor(color);
+        Activity activity = mActivityRef.get();
+        if (activity != null) {
+            activity.getWindow().setStatusBarColor(color);
+            mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
     @Override
     public void setStatusColorRes(@ColorRes int colorRes) {
         Activity activity = mActivityRef.get();
         if (activity != null) {
-            int color = ContextCompat.getColor(activity, colorRes);
-            setStatusColor(color);
+            setStatusColor(ContextCompat.getColor(activity, colorRes));
         }
     }
 
     @Override
     public boolean setStatusDrawable(@Nullable Drawable drawable) {
-        DrawableUtils.setViewBackgroundDrawable(mStatusBarView, drawable);
+        Activity activity = mActivityRef.get();
+        if (activity != null) {
+            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            mCompatStatusBarView.setBackground(drawable);
+        }
         return true;
     }
 
@@ -98,8 +105,8 @@ public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
 
     @Override
     public void setNavigationColor(@ColorInt int color) {
-        if (mNavigationBarView != null) {
-            mNavigationBarView.setBackgroundColor(color);
+        if (mCompatNavigationBarView != null) {
+            mCompatNavigationBarView.setBackgroundColor(color);
         }
     }
 
@@ -114,8 +121,8 @@ public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
 
     @Override
     public boolean setNavigationDrawable(@Nullable Drawable drawable) {
-        if (mNavigationBarView != null) {
-            mNavigationBarView.setBackground(drawable);
+        if (mCompatNavigationBarView != null) {
+            mCompatNavigationBarView.setBackground(drawable);
         }
         return true;
     }
@@ -136,14 +143,14 @@ public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
     }
 
     @NonNull
-    private View setupStatusBarView(@NonNull Activity activity) throws IllegalStateException {
+    private View setupContentViewAndStatusBarView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
         View userView = contentViewGroup.getChildAt(0);
         if (userView == null) {
             throw new IllegalStateException("Plz invode setContentView() method first!");
         }
 
-        userView.setFitsSystemWindows(false);
+        userView.setFitsSystemWindows(true);
 
         View statusBarView = new View(activity);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, GlobalConfig.getInstance().getStatusBarHeight());
@@ -175,4 +182,5 @@ public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
         }
         return navigationBarView;
     }
+
 }
