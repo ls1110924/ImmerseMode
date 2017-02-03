@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
+import com.yunxian.immerse.enumeration.ImmerseConfigType;
 import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 
 /**
@@ -29,8 +30,46 @@ public class NormalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
-        ImmerseConfiguration immerseConfiguration = new ImmerseConfiguration.Builder().build();
-        ImmerseHelper immerseHelper = new ImmerseHelper(this, immerseConfiguration);
+        ImmerseConfiguration.Builder builder = new ImmerseConfiguration.Builder();
+
+        Bundle bundle = getIntent().getExtras();
+        String paras = bundle.getString("Mode");
+        if ("NSB_NNB".equals(paras)) {
+            builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(false);
+        } else if ("TLSB_NNB".equals(paras)) {
+            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(false);
+        } else if ("TLSB_TLNB".equals(paras)) {
+            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.TRANSLUCENT)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.TRANSLUCENT)
+                    .setFullScreenInL(false);
+        } else if ("TPSB_NNB".equals(paras)) {
+            // Kitkat不支持全透状态栏+普通导航栏，故而降级到半透状态栏+普通导航栏
+            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(false);
+        } else if ("TPSB_TLNB".equals(paras)) {
+            // Kitkat不支持全透状态栏+半透导航栏，故而降级到半透状态栏+半透导航栏
+            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.TRANSLUCENT)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.TRANSLUCENT)
+                    .setFullScreenInL(false);
+        } else {
+            // 补偿逻辑
+            builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(false);
+        }
+
+        ImmerseHelper immerseHelper = new ImmerseHelper(this, builder.build());
         immerseHelper.setStatusColorRes(R.color.colorAccent);
         immerseHelper.setNavigationColorRes(R.color.colorAccent);
     }
