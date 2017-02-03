@@ -8,11 +8,23 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.yunxian.immerse.enumeration.ImmerseConfigType;
+import com.yunxian.immerse.enumeration.ImmerseType;
 import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immerse.impl.NormalImmerseMode;
+import com.yunxian.immerse.impl.TlSbNNbImmerseMode;
+import com.yunxian.immerse.impl.TlSbNNbWFcImmerseMode;
+import com.yunxian.immerse.impl.TlSbTlNbImmerseMode;
+import com.yunxian.immerse.impl.TlSbTlNbWFcImmerseMode;
+import com.yunxian.immerse.impl.TpSbNNbImmerseMode;
+import com.yunxian.immerse.impl.TpSbNNbwFcImmerseMode;
+import com.yunxian.immerse.impl.TpSbTlNbImmerseMode;
+import com.yunxian.immerse.impl.TpSbTlNbWFcImmerseMode;
 import com.yunxian.immerse.impl.TranslucentImmerseMode;
 import com.yunxian.immerse.impl.TransparentImmerseMode;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
+
+import java.util.Locale;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.KITKAT;
@@ -21,18 +33,18 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 /**
  * 状态栏沉浸工具类
  * <p>
- *     本工具类主要提供三种类型设置参数，分别为非全屏，全屏不调整adjustResize，全屏且调整adjustResize
- *     <ol>
- *         <li>对于非全屏类型：无任何问题，用户内容正常布局，且不影响状态栏着色。
- *         本工具类已占用fitSystemWindow属性，故用户不必使用</li>
- *         <li>对于全屏不调整adjustResize类型：用户内容布局延伸至状态栏之下，
- *         用户自行处理状态栏之下的内容以及fitSystemWindow属性的应用。
- *         注：页面不可有EditText元素，否则会影响软键盘弹出。</li>
- *         <li>对于全屏且调整adjustResize类型：用户内容布局延伸至状态栏之下，
- *         用户可自行处理状态栏之下的内容，但该工具类已占用fitSystemWindow属性，用户不必使用。
- *         如需使用，则需调用{@link #setOnInsetsChangeListener(boolean, ConsumeInsetsFrameLayout.OnInsetsChangeListener)}
- *         方法进行监听处理</li>
- *     </ol>
+ * 本工具类主要提供三种类型设置参数，分别为非全屏，全屏不调整adjustResize，全屏且调整adjustResize
+ * <ol>
+ * <li>对于非全屏类型：无任何问题，用户内容正常布局，且不影响状态栏着色。
+ * 本工具类已占用fitSystemWindow属性，故用户不必使用</li>
+ * <li>对于全屏不调整adjustResize类型：用户内容布局延伸至状态栏之下，
+ * 用户自行处理状态栏之下的内容以及fitSystemWindow属性的应用。
+ * 注：页面不可有EditText元素，否则会影响软键盘弹出。</li>
+ * <li>对于全屏且调整adjustResize类型：用户内容布局延伸至状态栏之下，
+ * 用户可自行处理状态栏之下的内容，但该工具类已占用fitSystemWindow属性，用户不必使用。
+ * 如需使用，则需调用{@link #setOnInsetsChangeListener(boolean, ConsumeInsetsFrameLayout.OnInsetsChangeListener)}
+ * 方法进行监听处理</li>
+ * </ol>
  * </p>
  *
  * @author AShuai
@@ -101,6 +113,69 @@ public final class ImmerseHelper {
         }
     }
 
+    public ImmerseHelper(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
+        this(activity, immerseConfiguration.mImmerseTypeInKK, immerseConfiguration.mImmerseTypeInL);
+    }
+
+    public ImmerseHelper(@NonNull Activity activity, @NonNull ImmerseType immerseTypeInKK,
+                         @NonNull ImmerseType immerseTypeInL) {
+        if (SDK_INT < KITKAT) {
+            immerseMode = new NormalImmerseMode(activity);
+        } else if (SDK_INT < LOLLIPOP) {
+            switch (immerseTypeInKK) {
+                case NSB_NNB:
+                    immerseMode = new NormalImmerseMode(activity);
+                    break;
+                case TLSB_NNB:
+                    immerseMode = new TlSbNNbImmerseMode(activity);
+                    break;
+                case TLSB_NNB_FC:
+                    immerseMode = new TlSbNNbWFcImmerseMode(activity);
+                    break;
+                case TLSB_TLNB:
+                    immerseMode = new TlSbTlNbImmerseMode(activity);
+                    break;
+                case TLSB_TLNB_FC:
+                    immerseMode = new TlSbTlNbWFcImmerseMode(activity);
+                    break;
+                default:
+                    throw new IllegalAccessError(String.format(Locale.US, "Kitkat don't support %s mode!", immerseTypeInKK.toString()));
+            }
+        } else {
+            switch (immerseTypeInL) {
+                case NSB_NNB:
+                    immerseMode = new NormalImmerseMode(activity);
+                    break;
+                case TLSB_NNB:
+                    immerseMode = new TlSbNNbImmerseMode(activity);
+                    break;
+                case TLSB_NNB_FC:
+                    immerseMode = new TlSbNNbWFcImmerseMode(activity);
+                    break;
+                case TLSB_TLNB:
+                    immerseMode = new TlSbTlNbImmerseMode(activity);
+                    break;
+                case TLSB_TLNB_FC:
+                    immerseMode = new TlSbTlNbWFcImmerseMode(activity);
+                    break;
+                case TPSB_NNB:
+                    immerseMode = new TpSbNNbImmerseMode(activity);
+                    break;
+                case TPSB_NNB_FC:
+                    immerseMode = new TpSbNNbwFcImmerseMode(activity);
+                    break;
+                case TPSB_TLNB:
+                    immerseMode = new TpSbTlNbImmerseMode(activity);
+                    break;
+                case TPSB_TLNB_FC:
+                    immerseMode = new TpSbTlNbWFcImmerseMode(activity);
+                    break;
+                default:
+                    throw new IllegalAccessError(String.format(Locale.US, "Lollipop don't support %s mode!", immerseTypeInKK.toString()));
+            }
+        }
+    }
+
     /**
      * 设置状态栏颜色
      *
@@ -137,6 +212,22 @@ public final class ImmerseHelper {
      */
     public boolean setStatusDrawableRes(@DrawableRes int drawableRes) {
         return immerseMode.setStatusDrawableRes(drawableRes);
+    }
+
+    public void setNavigationColor(@ColorInt int color) {
+        immerseMode.setNavigationColor(color);
+    }
+
+    public void setNavigationColorRes(@ColorRes int colorRes) {
+        immerseMode.setNavigationColorRes(colorRes);
+    }
+
+    public boolean setNavigationDrawable(@Nullable Drawable drawable) {
+        return immerseMode.setNavigationDrawable(drawable);
+    }
+
+    public boolean setNavigationDrawableRes(@DrawableRes int drawableRes) {
+        return immerseMode.setNavigationDrawableRes(drawableRes);
     }
 
     /**

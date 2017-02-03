@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
 import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 
@@ -28,8 +29,10 @@ public class NormalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
-        ImmerseHelper immerseHelper = new ImmerseHelper(this, StatusBarImmerseType.NORMAL, StatusBarImmerseType.NORMAL);
+        ImmerseConfiguration immerseConfiguration = new ImmerseConfiguration.Builder().build();
+        ImmerseHelper immerseHelper = new ImmerseHelper(this, immerseConfiguration);
         immerseHelper.setStatusColorRes(R.color.colorAccent);
+        immerseHelper.setNavigationColorRes(R.color.colorAccent);
     }
 
     @Override
