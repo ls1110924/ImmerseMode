@@ -214,18 +214,40 @@ public final class ImmerseHelper {
         return immerseMode.setStatusDrawableRes(drawableRes);
     }
 
+    /**
+     * 设置导航栏颜色
+     *
+     * @param color 颜色值
+     */
     public void setNavigationColor(@ColorInt int color) {
         immerseMode.setNavigationColor(color);
     }
 
+    /**
+     * 设置导航栏颜色
+     *
+     * @param colorRes 颜色值资源Id
+     */
     public void setNavigationColorRes(@ColorRes int colorRes) {
         immerseMode.setNavigationColorRes(colorRes);
     }
 
+    /**
+     * 如果支持的话，设置导航栏背景Drawable
+     *
+     * @param drawable Drawable对象
+     * @return 设置成功，返回true；否则返回false
+     */
     public boolean setNavigationDrawable(@Nullable Drawable drawable) {
         return immerseMode.setNavigationDrawable(drawable);
     }
 
+    /**
+     * 如果支持的话，设置导航栏背景Drawable
+     *
+     * @param drawableRes Drawable资源Id
+     * @return 设置成功，返回true；否则返回false
+     */
     public boolean setNavigationDrawableRes(@DrawableRes int drawableRes) {
         return immerseMode.setNavigationDrawableRes(drawableRes);
     }

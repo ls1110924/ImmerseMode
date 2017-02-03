@@ -2,7 +2,7 @@ package com.yunxian.immersemode.sample.application;
 
 import android.app.Application;
 
-import com.yunxian.immerse.manager.GlobalConfig;
+import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 
 /**
  * @author AShuai
@@ -15,6 +15,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        GlobalConfig.init(this);
+        ImmerseGlobalConfig.init(this);
     }
 }

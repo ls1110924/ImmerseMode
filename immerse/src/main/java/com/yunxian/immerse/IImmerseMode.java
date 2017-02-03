@@ -47,12 +47,34 @@ public interface IImmerseMode {
      */
     boolean setStatusDrawableRes(@DrawableRes int drawableRes);
 
+    /**
+     * 设置导航栏颜色
+     *
+     * @param color 颜色值
+     */
     void setNavigationColor(@ColorInt int color);
 
+    /**
+     * 设置导航栏颜色
+     *
+     * @param colorRes 颜色值资源Id
+     */
     void setNavigationColorRes(@ColorRes int colorRes);
 
+    /**
+     * 如果支持的话，设置导航栏背景Drawable
+     *
+     * @param drawable Drawable对象
+     * @return 设置成功，返回true；否则返回false
+     */
     boolean setNavigationDrawable(@Nullable Drawable drawable);
 
+    /**
+     * 如果支持的话，设置导航栏背景Drawable
+     *
+     * @param drawableRes Drawable资源Id
+     * @return 设置成功，返回true；否则返回false
+     */
     boolean setNavigationDrawableRes(@DrawableRes int drawableRes);
 
     /**

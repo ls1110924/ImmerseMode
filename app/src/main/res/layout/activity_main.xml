@@ -56,25 +56,25 @@
         android:id="@+id/tpsb_nnb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="全透明模式状态栏+普通导航栏（仅限5.0及以上）" />
+        android:text="全透明状态栏+普通导航栏（仅限5.0及以上）" />
 
     <Button
         android:id="@+id/tpsb_nnb_fc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="全透明模式状态栏+普通导航栏+全屏(仅限5.0及以上)" />
+        android:text="全透明状态栏+普通导航栏+全屏(仅限5.0及以上)" />
 
     <Button
         android:id="@+id/tpsb_tlnb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="全透明模式状态栏+半透明导航栏（仅限5.0及以上）" />
+        android:text="全透明状态栏+半透明导航栏（仅限5.0及以上）" />
 
     <Button
         android:id="@+id/tpsb_tlnb_fc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="全透明模式状态栏+半透明导航栏+全屏(仅限5.0及以上)" />
+        android:text="全透明状态栏+半透明导航栏+全屏(仅限5.0及以上)" />
 
     <Button
         android:id="@+id/full_input_mode"

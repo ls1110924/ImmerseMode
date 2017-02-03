@@ -1,6 +1,5 @@
 package com.yunxian.immerse.manager;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -15,9 +14,9 @@ import com.yunxian.immerse.utils.ResourcesUtils;
  * @email ls1110924@gmail.com
  * @date 17/1/21 下午7:50
  */
-public final class GlobalConfig {
+public final class ImmerseGlobalConfig {
 
-    private static GlobalConfig INSTANCE = null;
+    private static ImmerseGlobalConfig INSTANCE = null;
 
     /**
      * 初始化方法，请在Application中调用该方法完成初始化
@@ -26,9 +25,9 @@ public final class GlobalConfig {
      */
     public static void init(@NonNull Context context) {
         if (INSTANCE == null) {
-            synchronized (GlobalConfig.class) {
+            synchronized (ImmerseGlobalConfig.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new GlobalConfig(context);
+                    INSTANCE = new ImmerseGlobalConfig(context);
                 }
             }
         }
@@ -41,7 +40,7 @@ public final class GlobalConfig {
      * @throws IllegalStateException
      */
     @NonNull
-    public static GlobalConfig getInstance() throws IllegalStateException {
+    public static ImmerseGlobalConfig getInstance() throws IllegalStateException {
         if (INSTANCE == null) {
             throw new IllegalStateException("Plz init first on Application onCreate()!");
         }
@@ -53,7 +52,7 @@ public final class GlobalConfig {
 
     private final int mStatusBarHeight;
 
-    private GlobalConfig(@NonNull Context context) {
+    private ImmerseGlobalConfig(@NonNull Context context) {
         Resources res = context.getResources();
         mStatusBarHeight = ResourcesUtils.getDimensionSize(res, STATUS_BAR_HEIGHT_RES_NAME, "android", R.dimen.immerse_status_bar_height);
     }

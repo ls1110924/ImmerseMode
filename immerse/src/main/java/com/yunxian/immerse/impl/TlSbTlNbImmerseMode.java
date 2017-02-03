@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 
 import com.yunxian.immerse.IImmerseMode;
 import com.yunxian.immerse.manager.ActivityConfig;
-import com.yunxian.immerse.manager.GlobalConfig;
+import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 import com.yunxian.immerse.utils.DrawableUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
@@ -140,7 +140,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         userView.setFitsSystemWindows(true);
 
         View statusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, GlobalConfig.getInstance().getStatusBarHeight());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ImmerseGlobalConfig.getInstance().getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
 
         return statusBarView;
