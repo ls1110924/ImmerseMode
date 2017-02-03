@@ -49,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.translucent_full_mode: {
-                    Intent intent = new Intent(MainActivity.this, TranslucentFullActivity.class);
+                    Intent intent = new Intent(MainActivity.this, FullActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TLSB_NNB_FC");
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     break;
                 }
@@ -62,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.transparent_full_mode: {
-                    Intent intent = new Intent(MainActivity.this, TransparentFullActivity.class);
+                    Intent intent = new Intent(MainActivity.this, FullActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TPSB_NNB_FC");
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     break;
                 }
