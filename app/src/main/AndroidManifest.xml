@@ -24,16 +24,7 @@
             android:name=".NormalActivity"
             android:theme="@style/CUNTheme.NoActionBar" />
         <activity
-            android:name=".TranslucentActivity"
-            android:theme="@style/CUNTheme.NoActionBar" />
-        <activity
             android:name=".FullActivity"
-            android:theme="@style/CUNTheme.NoActionBar" />
-        <activity
-            android:name=".TransparentActivity"
-            android:theme="@style/CUNTheme.NoActionBar" />
-        <activity
-            android:name=".TransparentFullActivity"
             android:theme="@style/CUNTheme.NoActionBar" />
         <activity
             android:name=".FullInputActivity"
