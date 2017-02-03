@@ -18,11 +18,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById(R.id.normal_mode).setOnClickListener(mCommonListener);
-        findViewById(R.id.translucent_mode).setOnClickListener(mCommonListener);
-        findViewById(R.id.translucent_full_mode).setOnClickListener(mCommonListener);
-        findViewById(R.id.transparent_mode).setOnClickListener(mCommonListener);
-        findViewById(R.id.transparent_full_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.nsb_nnb).setOnClickListener(mCommonListener);
+        findViewById(R.id.tlsb_nnb).setOnClickListener(mCommonListener);
+        findViewById(R.id.tlsb_nnb_fc).setOnClickListener(mCommonListener);
+        findViewById(R.id.tlsb_tlnb).setOnClickListener(mCommonListener);
+        findViewById(R.id.tlsb_tlnb_fc).setOnClickListener(mCommonListener);
+        findViewById(R.id.tpsb_nnb).setOnClickListener(mCommonListener);
+        findViewById(R.id.tpsb_nnb_fc).setOnClickListener(mCommonListener);
+        findViewById(R.id.tpsb_tlnb).setOnClickListener(mCommonListener);
+        findViewById(R.id.tpsb_tlnb_fc).setOnClickListener(mCommonListener);
         findViewById(R.id.full_input_mode).setOnClickListener(mCommonListener);
     }
 
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.normal_mode: {
+                case R.id.nsb_nnb: {
                     Intent intent = new Intent(MainActivity.this, NormalActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("Mode", "NSB_NNB");
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case R.id.translucent_mode: {
+                case R.id.tlsb_nnb: {
                     Intent intent = new Intent(MainActivity.this, NormalActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("Mode", "TLSB_NNB");
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case R.id.translucent_full_mode: {
+                case R.id.tlsb_nnb_fc: {
                     Intent intent = new Intent(MainActivity.this, FullActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("Mode", "TLSB_NNB_FC");
@@ -56,7 +60,23 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case R.id.transparent_mode: {
+                case R.id.tlsb_tlnb: {
+                    Intent intent = new Intent(MainActivity.this, NormalActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TLSB_TLNB");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.tlsb_tlnb_fc: {
+                    Intent intent = new Intent(MainActivity.this, FullActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TLSB_TLNB_FC");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.tpsb_nnb: {
                     Intent intent = new Intent(MainActivity.this, NormalActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("Mode", "TPSB_NNB");
@@ -64,10 +84,26 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case R.id.transparent_full_mode: {
+                case R.id.tpsb_nnb_fc: {
                     Intent intent = new Intent(MainActivity.this, FullActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("Mode", "TPSB_NNB_FC");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.tpsb_tlnb: {
+                    Intent intent = new Intent(MainActivity.this, NormalActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TPSB_TLNB");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.tpsb_tlnb_fc: {
+                    Intent intent = new Intent(MainActivity.this, FullActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TPSB_TLNB_FC");
                     intent.putExtras(bundle);
                     startActivity(intent);
                     break;

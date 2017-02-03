@@ -23,34 +23,58 @@
         android:text="Hello World!" />
 
     <Button
-        android:id="@+id/normal_mode"
+        android:id="@+id/nsb_nnb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="普通模式" />
+        android:text="普通状态栏+普通导航栏" />
 
     <Button
-        android:id="@+id/translucent_mode"
+        android:id="@+id/tlsb_nnb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="半透明模式" />
+        android:text="半透明状态栏+普通导航栏" />
 
     <Button
-        android:id="@+id/translucent_full_mode"
+        android:id="@+id/tlsb_nnb_fc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="半透明全屏模式" />
+        android:text="半透明状态栏+普通导航栏+全屏" />
 
     <Button
-        android:id="@+id/transparent_mode"
+        android:id="@+id/tlsb_tlnb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="透明模式" />
+        android:text="半透明状态栏+半透明导航栏" />
 
     <Button
-        android:id="@+id/transparent_full_mode"
+        android:id="@+id/tlsb_tlnb_fc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="透明全屏模式(仅限5.0及以上)" />
+        android:text="半透明状态栏+半透明导航栏+全屏" />
+
+    <Button
+        android:id="@+id/tpsb_nnb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全透明模式状态栏+普通导航栏（仅限5.0及以上）" />
+
+    <Button
+        android:id="@+id/tpsb_nnb_fc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全透明模式状态栏+普通导航栏+全屏(仅限5.0及以上)" />
+
+    <Button
+        android:id="@+id/tpsb_tlnb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全透明模式状态栏+半透明导航栏（仅限5.0及以上）" />
+
+    <Button
+        android:id="@+id/tpsb_tlnb_fc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全透明模式状态栏+半透明导航栏+全屏(仅限5.0及以上)" />
 
     <Button
         android:id="@+id/full_input_mode"

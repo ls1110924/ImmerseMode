@@ -53,7 +53,8 @@ public class TpSbTlNbWFcImmerseMode implements IImmerseMode {
 
         Window window = activity.getWindow();
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
-        WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS | FLAG_TRANSLUCENT_NAVIGATION);
+        WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
+        WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
@@ -63,6 +64,7 @@ public class TpSbTlNbWFcImmerseMode implements IImmerseMode {
 
         window.setStatusBarColor(Color.TRANSPARENT);
         mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
+        window.setNavigationBarColor(Color.TRANSPARENT);
         if (mCompatNavigationBarView != null) {
             mCompatNavigationBarView.setBackgroundColor(Color.TRANSPARENT);
         }

@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
@@ -30,6 +31,8 @@ public class NormalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
+        TextView helloworldTxt = (TextView) findViewById(R.id.helloworld);
+
         ImmerseConfiguration.Builder builder = new ImmerseConfiguration.Builder();
 
         Bundle bundle = getIntent().getExtras();
@@ -39,34 +42,46 @@ public class NormalActivity extends AppCompatActivity {
                     .setFullScreenInKK(false);
             builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
                     .setFullScreenInL(false);
+
+            helloworldTxt.setText("普通状态栏+普通导航栏");
         } else if ("TLSB_NNB".equals(paras)) {
             builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
                     .setFullScreenInKK(false);
             builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
                     .setFullScreenInL(false);
+
+            helloworldTxt.setText("半透明状态栏+普通导航栏");
         } else if ("TLSB_TLNB".equals(paras)) {
             builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.TRANSLUCENT)
                     .setFullScreenInKK(false);
             builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.TRANSLUCENT)
                     .setFullScreenInL(false);
+
+            helloworldTxt.setText("半透明状态栏+半透明导航栏");
         } else if ("TPSB_NNB".equals(paras)) {
             // Kitkat不支持全透状态栏+普通导航栏，故而降级到半透状态栏+普通导航栏
             builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
                     .setFullScreenInKK(false);
             builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
                     .setFullScreenInL(false);
+
+            helloworldTxt.setText("全透明状态栏+普通导航栏；4.4降级到半透明状态栏+普通导航栏");
         } else if ("TPSB_TLNB".equals(paras)) {
             // Kitkat不支持全透状态栏+半透导航栏，故而降级到半透状态栏+半透导航栏
             builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.TRANSLUCENT)
                     .setFullScreenInKK(false);
             builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.TRANSLUCENT)
                     .setFullScreenInL(false);
+
+            helloworldTxt.setText("全透明状态栏+半透明导航栏；4.4降级到半透明状态栏+半透明导航栏");
         } else {
             // 补偿逻辑
             builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
                     .setFullScreenInKK(false);
             builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
                     .setFullScreenInL(false);
+
+            helloworldTxt.setText("普通状态栏+普通导航栏");
         }
 
         ImmerseHelper immerseHelper = new ImmerseHelper(this, builder.build());
