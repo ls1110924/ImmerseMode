@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
+import com.yunxian.immerse.enumeration.ImmerseConfigType;
 import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 
 /**
@@ -27,8 +29,12 @@ public class TransparentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
-        ImmerseHelper immerseHelper = new ImmerseHelper(this, StatusBarImmerseType.TRANSLUCENT, StatusBarImmerseType.TRANSPARENT);
+        ImmerseConfiguration.Builder builder = new ImmerseConfiguration.Builder();
+        builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT);
+        builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT);
+        ImmerseHelper immerseHelper = new ImmerseHelper(this, builder.build());
         immerseHelper.setStatusColorRes(R.color.colorAccent);
+        immerseHelper.setNavigationColorRes(R.color.colorAccent);
     }
 
     @Override

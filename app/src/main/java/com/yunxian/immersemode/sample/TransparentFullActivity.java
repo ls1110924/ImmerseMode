@@ -8,7 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
+import com.yunxian.immerse.enumeration.ImmerseConfigType;
 import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immersemode.sample.widget.ExScrollView;
 
@@ -46,9 +48,14 @@ public class TransparentFullActivity extends AppCompatActivity {
 
         mImgHeader = (ImageView) findViewById(R.id.img_header);
 
-        mImmerseHelper = new ImmerseHelper(this, StatusBarImmerseType.TRANSLUCENT,
-                StatusBarImmerseType.TRANSPARENT, true);
+        ImmerseConfiguration.Builder builder = new ImmerseConfiguration.Builder();
+        builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT);
+        builder.setFullScreenInKK(true);
+        builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT);
+        builder.setFullScreenInL(true);
+        mImmerseHelper = new ImmerseHelper(this, builder.build());
         mImmerseHelper.setStatusColor(Color.TRANSPARENT);
+        mImmerseHelper.setNavigationColorRes(R.color.colorAccent);
 
         ExScrollView scrollView = (ExScrollView) findViewById(R.id.scroll_view);
         scrollView.setOnScrollChangeListener(mCommonListener);
