@@ -27,6 +27,11 @@ public enum ImmerseType {
     TLSB_NNB_FC,
 
     /**
+     * 半透明状态栏+普通导航栏+内容全屏+EditText AdjustResize
+     */
+    TLSB_NNB_FC_AR,
+
+    /**
      * 半透明状态栏+半透明导航栏
      */
     TLSB_TLNB,
@@ -45,6 +50,11 @@ public enum ImmerseType {
      * 全透明状态栏+普通导航栏+内容全屏
      */
     TPSB_NNB_FC,
+
+    /**
+     * 全透明状态栏+普通导航栏+内容全屏+EditText AdjustResize
+     */
+    TPSB_NNB_FC_AR,
 
     /**
      * 全透明状态栏+半透明导航啦

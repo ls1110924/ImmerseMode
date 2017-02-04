@@ -27,10 +27,12 @@ public final class ImmerseConfiguration {
         private ImmerseConfigType mStatusBarModeInKK = ImmerseConfigType.NORMAL;
         private ImmerseConfigType mNavigationBarModeInKK = ImmerseConfigType.NORMAL;
         private boolean mFullScreenInKK = false;
+        private boolean mAdjustResizeInKK = false;
 
         private ImmerseConfigType mStatusBarModeInL = ImmerseConfigType.NORMAL;
         private ImmerseConfigType mNavigationBarModeInL = ImmerseConfigType.NORMAL;
         private boolean mFullScreenInL = false;
+        private boolean mAdjustResizeInL = false;
 
         public Builder() {
         }
@@ -50,6 +52,11 @@ public final class ImmerseConfiguration {
             return this;
         }
 
+        public Builder setAdjustResizeInKK(boolean adjustResizeInKK) {
+            this.mAdjustResizeInKK = adjustResizeInKK;
+            return this;
+        }
+
         public Builder setStatusBarModeInL(@NonNull ImmerseConfigType statusBarModeInL) {
             this.mStatusBarModeInL = statusBarModeInL;
             return this;
@@ -65,11 +72,18 @@ public final class ImmerseConfiguration {
             return this;
         }
 
+        public Builder setAdjustResizeInL(boolean adjustResizeInL) {
+            this.mAdjustResizeInL = adjustResizeInL;
+            return this;
+        }
+
         public ImmerseConfiguration build() {
             ImmerseType immerseTypeInKK;
             ImmerseType immerseTypeInL;
 
-            if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT && mNavigationBarModeInKK == ImmerseConfigType.TRANSLUCENT) {
+            if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT && mFullScreenInKK && mAdjustResizeInKK) {
+                immerseTypeInKK = ImmerseType.TLSB_NNB_FC_AR;
+            } else if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT && mNavigationBarModeInKK == ImmerseConfigType.TRANSLUCENT) {
                 immerseTypeInKK = mFullScreenInKK ? ImmerseType.TLSB_TLNB_FC : ImmerseType.TLSB_TLNB;
             } else if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT) {
                 immerseTypeInKK = mFullScreenInKK ? ImmerseType.TLSB_NNB_FC : ImmerseType.TLSB_NNB;
@@ -77,7 +91,11 @@ public final class ImmerseConfiguration {
                 immerseTypeInKK = ImmerseType.NSB_NNB;
             }
 
-            if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT && mNavigationBarModeInL == ImmerseConfigType.TRANSLUCENT) {
+            if (mStatusBarModeInL == ImmerseConfigType.TRANSLUCENT && mFullScreenInL && mAdjustResizeInL) {
+                immerseTypeInL = ImmerseType.TLSB_NNB_FC_AR;
+            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT && mFullScreenInL && mAdjustResizeInL) {
+                immerseTypeInL = ImmerseType.TPSB_NNB_FC_AR;
+            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT && mNavigationBarModeInL == ImmerseConfigType.TRANSLUCENT) {
                 immerseTypeInL = mFullScreenInL ? ImmerseType.TPSB_TLNB_FC : ImmerseType.TPSB_TLNB;
             } else if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT) {
                 immerseTypeInL = mFullScreenInL ? ImmerseType.TPSB_NNB_FC : ImmerseType.TPSB_NNB;

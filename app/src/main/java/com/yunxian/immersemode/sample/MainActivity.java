@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tpsb_nnb_fc).setOnClickListener(mCommonListener);
         findViewById(R.id.tpsb_tlnb).setOnClickListener(mCommonListener);
         findViewById(R.id.tpsb_tlnb_fc).setOnClickListener(mCommonListener);
-        findViewById(R.id.full_input_mode).setOnClickListener(mCommonListener);
+        findViewById(R.id.tlsb_nnb_fc_ar).setOnClickListener(mCommonListener);
+        findViewById(R.id.tpsb_nnb_fc_ar).setOnClickListener(mCommonListener);
     }
 
 
@@ -108,8 +109,19 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 }
-                case R.id.full_input_mode: {
+                case R.id.tlsb_nnb_fc_ar: {
                     Intent intent = new Intent(MainActivity.this, FullInputActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TLSB_NNB_FC_AR");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.tpsb_nnb_fc_ar: {
+                    Intent intent = new Intent(MainActivity.this, FullInputActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mode", "TPSB_NNB_FC_AR");
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     break;
                 }

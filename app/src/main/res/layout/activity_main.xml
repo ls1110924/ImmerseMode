@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.yunxian.immersemode.sample.MainActivity">
 
@@ -16,70 +16,87 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <TextView
-        android:id="@+id/helloworld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/nsb_nnb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="普通状态栏+普通导航栏" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/tlsb_nnb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="半透明状态栏+普通导航栏" />
+            <TextView
+                android:id="@+id/helloworld"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello World!" />
 
-    <Button
-        android:id="@+id/tlsb_nnb_fc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="半透明状态栏+普通导航栏+全屏" />
+            <Button
+                android:id="@+id/nsb_nnb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="普通状态栏+普通导航栏" />
 
-    <Button
-        android:id="@+id/tlsb_tlnb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="半透明状态栏+半透明导航栏" />
+            <Button
+                android:id="@+id/tlsb_nnb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="半透明状态栏+普通导航栏" />
 
-    <Button
-        android:id="@+id/tlsb_tlnb_fc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="半透明状态栏+半透明导航栏+全屏" />
+            <Button
+                android:id="@+id/tlsb_nnb_fc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="半透明状态栏+普通导航栏+全屏" />
 
-    <Button
-        android:id="@+id/tpsb_nnb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="全透明状态栏+普通导航栏（仅限5.0及以上）" />
+            <Button
+                android:id="@+id/tlsb_tlnb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="半透明状态栏+半透明导航栏" />
 
-    <Button
-        android:id="@+id/tpsb_nnb_fc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="全透明状态栏+普通导航栏+全屏(仅限5.0及以上)" />
+            <Button
+                android:id="@+id/tlsb_tlnb_fc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="半透明状态栏+半透明导航栏+全屏" />
 
-    <Button
-        android:id="@+id/tpsb_tlnb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="全透明状态栏+半透明导航栏（仅限5.0及以上）" />
+            <Button
+                android:id="@+id/tpsb_nnb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全透明状态栏+普通导航栏（仅限5.0及以上）" />
 
-    <Button
-        android:id="@+id/tpsb_tlnb_fc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="全透明状态栏+半透明导航栏+全屏(仅限5.0及以上)" />
+            <Button
+                android:id="@+id/tpsb_nnb_fc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全透明状态栏+普通导航栏+全屏(仅限5.0及以上)" />
 
-    <Button
-        android:id="@+id/full_input_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="全屏模式+EditText" />
+            <Button
+                android:id="@+id/tpsb_tlnb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全透明状态栏+半透明导航栏（仅限5.0及以上）" />
+
+            <Button
+                android:id="@+id/tpsb_tlnb_fc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全透明状态栏+半透明导航栏+全屏(仅限5.0及以上)" />
+
+            <Button
+                android:id="@+id/tlsb_nnb_fc_ar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="半透明状态栏+内容全屏+EditText AdjustResize" />
+
+            <Button
+                android:id="@+id/tpsb_nnb_fc_ar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="半透明状态栏+内容全屏+EditText AdjustResize" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

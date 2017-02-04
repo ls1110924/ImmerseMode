@@ -9,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
+import com.yunxian.immerse.enumeration.ImmerseConfigType;
 import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
@@ -36,10 +38,31 @@ public class FullInputActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(Color.TRANSPARENT);
 
-        ImmerseHelper immerseHelper = new ImmerseHelper(this, StatusBarImmerseType.TRANSLUCENT,
-                StatusBarImmerseType.TRANSPARENT, true, true);
+        ImmerseConfiguration.Builder builder = new ImmerseConfiguration.Builder();
+        Bundle bundle = getIntent().getExtras();
+        String paras = bundle.getString("Mode");
+        if ("TLSB_NNB_FC_AR".equals(paras)) {
+            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(true).setAdjustResizeInKK(true);
+            builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(true).setAdjustResizeInL(true);
+        } else if ("TPSB_NNB_FC_AR".equals(paras)) {
+            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(true).setAdjustResizeInKK(true);
+            builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(true).setAdjustResizeInL(true);
+        } else {
+            // 补偿逻辑
+            builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+                    .setFullScreenInKK(false);
+            builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+                    .setFullScreenInL(false);
+        }
+
+        ImmerseHelper immerseHelper = new ImmerseHelper(this, builder.build());
         immerseHelper.setOnInsetsChangeListener(true, mCommonListener);
         immerseHelper.setStatusColor(Color.TRANSPARENT);
+        immerseHelper.setNavigationColorRes(R.color.colorAccent);
     }
 
     @Override

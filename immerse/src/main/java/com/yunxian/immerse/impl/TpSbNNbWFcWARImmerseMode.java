@@ -29,6 +29,8 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATIO
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 
 /**
+ * 全透明状态栏+普通导航栏+内容全屏+EditText Adjust-Resize模式
+ *
  * @author AShuai
  * @email ls1110924@gmail.com
  * @date 17/2/3 下午5:55

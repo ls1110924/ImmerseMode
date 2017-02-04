@@ -14,9 +14,11 @@ import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immerse.impl.NormalImmerseMode;
 import com.yunxian.immerse.impl.TlSbNNbImmerseMode;
 import com.yunxian.immerse.impl.TlSbNNbWFcImmerseMode;
+import com.yunxian.immerse.impl.TlSbNNbWFcWARImmerseMode;
 import com.yunxian.immerse.impl.TlSbTlNbImmerseMode;
 import com.yunxian.immerse.impl.TlSbTlNbWFcImmerseMode;
 import com.yunxian.immerse.impl.TpSbNNbImmerseMode;
+import com.yunxian.immerse.impl.TpSbNNbWFcWARImmerseMode;
 import com.yunxian.immerse.impl.TpSbNNbwFcImmerseMode;
 import com.yunxian.immerse.impl.TpSbTlNbImmerseMode;
 import com.yunxian.immerse.impl.TpSbTlNbWFcImmerseMode;
@@ -132,6 +134,9 @@ public final class ImmerseHelper {
                 case TLSB_NNB_FC:
                     immerseMode = new TlSbNNbWFcImmerseMode(activity);
                     break;
+                case TLSB_NNB_FC_AR:
+                    immerseMode = new TlSbNNbWFcWARImmerseMode(activity);
+                    break;
                 case TLSB_TLNB:
                     immerseMode = new TlSbTlNbImmerseMode(activity);
                     break;
@@ -152,6 +157,9 @@ public final class ImmerseHelper {
                 case TLSB_NNB_FC:
                     immerseMode = new TlSbNNbWFcImmerseMode(activity);
                     break;
+                case TLSB_NNB_FC_AR:
+                    immerseMode = new TlSbNNbWFcWARImmerseMode(activity);
+                    break;
                 case TLSB_TLNB:
                     immerseMode = new TlSbTlNbImmerseMode(activity);
                     break;
@@ -163,6 +171,9 @@ public final class ImmerseHelper {
                     break;
                 case TPSB_NNB_FC:
                     immerseMode = new TpSbNNbwFcImmerseMode(activity);
+                    break;
+                case TPSB_NNB_FC_AR:
+                    immerseMode = new TpSbNNbWFcWARImmerseMode(activity);
                     break;
                 case TPSB_TLNB:
                     immerseMode = new TpSbTlNbImmerseMode(activity);
