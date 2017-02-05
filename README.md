@@ -8,11 +8,13 @@
 
 ### 状态栏着色
 
-|版本|普通模式|半透明模式|全透明模式|
+|模式/版本|4.3及以下|4.4|5.0及一上|
 |:-:|:-:|:-:|:-:|
-|4.3及以下|![](./img/4.2.2/normal.png)|不支持|不支持|
-|4.4|![](./img/4.4.4/normal.png)|![](./img/4.4.4/translucent.png)|不支持|
-|5.0及以上|![](./img/5.1/normal.png)|![](./img/5.1/translucent.png)|![](./img/5.1/transparent.png)|
+|普通模式|![](./img/4.2.2/normal.png)|![](./img/4.4.4/NSB_NNB.png)|![](./img/6.0.0/NSB_NNB.png)|
+|半透状态栏+普通导航栏|不支持|![](./img/4.4.4/TLSB_NNB.png)|![](./img/6.0.0/TLSB_NNB.png)|
+|半透状态栏+半透导航栏|不支持|![](./img/4.4.4/TLSB_TLNB.png)|![](./img/6.0.0/TLSB_TLNB.png)|
+|全透状态栏+普通导航栏|不支持|不支持|![](./img/6.0.0/TPSB_NNB.png)|
+|全透状态栏+半透导航栏|不支持|不支持|![](./img/6.0.0/TPSB_TLNB.png)|
 
 ### 内容全屏
 
