@@ -39,7 +39,8 @@ public class NormalImmerseMode implements IImmerseMode {
         mActivityRef = new SoftReference<>(activity);
         Window window = activity.getWindow();
         if (SDK_INT >= KITKAT) {
-            WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS | FLAG_TRANSLUCENT_NAVIGATION);
+            WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
+            WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         }
         if (SDK_INT >= LOLLIPOP) {
             WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

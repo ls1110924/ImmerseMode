@@ -95,7 +95,7 @@
                 android:id="@+id/tpsb_nnb_fc_ar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="半透明状态栏+内容全屏+EditText AdjustResize" />
+                android:text="全透明状态栏+内容全屏+EditText AdjustResize" />
         </LinearLayout>
     </ScrollView>
 

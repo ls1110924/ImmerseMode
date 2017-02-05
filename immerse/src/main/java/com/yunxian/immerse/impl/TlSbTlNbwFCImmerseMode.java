@@ -37,7 +37,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
  * @date 2017/2/2 17:49
  */
 @TargetApi(KITKAT)
-public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
+public class TlSbTlNbwFCImmerseMode implements IImmerseMode {
 
     private final SoftReference<Activity> mActivityRef;
 
@@ -49,7 +49,7 @@ public class TlSbTlNbWFcImmerseMode implements IImmerseMode {
     @Nullable
     private final View mNavigationBarView;
 
-    public TlSbTlNbWFcImmerseMode(@NonNull Activity activity) {
+    public TlSbTlNbwFCImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
 
         Window window = activity.getWindow();
