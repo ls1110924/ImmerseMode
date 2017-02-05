@@ -190,6 +190,8 @@ public final class ImmerseHelper {
 
     /**
      * 用于当内容全屏沉浸时，获取Insets应有留白
+     * <p>top对应状态栏的高度；left留空；right对应导航栏位于屏幕右侧时的宽度；bottom对应导航栏位于屏幕底部时的高度</p>
+     * <p>注：导航栏存在三种情况：无；居于底部；居于右侧</p>
      *
      * @return Insets留白
      */
@@ -200,10 +202,12 @@ public final class ImmerseHelper {
 
     /**
      * 设置Insets监听器，以监听fitSystemWindow事件
+     * <p>该方法并不使用所有情况，现已弃用。如需获取Insets做留白用，可使用{@link #getInsetsPadding()}方法</p>
      *
      * @param operation true为注册，false为反注册
      * @param listener  Insets监听器
      */
+    @Deprecated
     public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
         immerseMode.setOnInsetsChangeListener(operation, listener);
     }
