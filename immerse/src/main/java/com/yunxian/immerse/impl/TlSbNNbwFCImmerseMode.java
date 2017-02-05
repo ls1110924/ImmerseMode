@@ -3,6 +3,7 @@ package com.yunxian.immerse.impl;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -41,6 +42,8 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
     private final SoftReference<Activity> mActivityRef;
 
     private final View mStatusBarView;
+
+    private final ImmerseGlobalConfig mImmerseGlobalConfig = ImmerseGlobalConfig.getInstance();
 
     public TlSbNNbwFCImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -111,6 +114,12 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
         return false;
     }
 
+    @NonNull
+    @Override
+    public Rect getInsetsPadding() {
+        return new Rect(0, mImmerseGlobalConfig.getStatusBarHeight(), 0, 0);
+    }
+
     @Override
     public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
 
@@ -127,7 +136,7 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
         userView.setFitsSystemWindows(false);
 
         View statusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ImmerseGlobalConfig.getInstance().getStatusBarHeight());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mImmerseGlobalConfig.getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
 
         return statusBarView;

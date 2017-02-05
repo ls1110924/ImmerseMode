@@ -1,6 +1,7 @@
 package com.yunxian.immerse;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -185,6 +186,16 @@ public final class ImmerseHelper {
      */
     public boolean setNavigationDrawableRes(@DrawableRes int drawableRes) {
         return immerseMode.setNavigationDrawableRes(drawableRes);
+    }
+
+    /**
+     * 用于当内容全屏沉浸时，获取Insets应有留白
+     *
+     * @return Insets留白
+     */
+    @NonNull
+    public Rect getInsetsPadding() {
+        return immerseMode.getInsetsPadding();
     }
 
     /**

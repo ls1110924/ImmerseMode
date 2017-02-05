@@ -12,8 +12,6 @@ import android.widget.FrameLayout;
 import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
 import com.yunxian.immerse.enumeration.ImmerseConfigType;
-import com.yunxian.immerse.enumeration.StatusBarImmerseType;
-import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
 /**
  * @author AShuai
@@ -22,17 +20,12 @@ import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
  */
 public class FullInputActivity extends AppCompatActivity {
 
-    private FrameLayout mToolbarPanel;
-
-    private final CommonCallbackListener mCommonListener = new CommonCallbackListener();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_full_input);
 
-        mToolbarPanel = (FrameLayout) findViewById(R.id.toolbar_panel);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,9 +53,12 @@ public class FullInputActivity extends AppCompatActivity {
         }
 
         ImmerseHelper immerseHelper = new ImmerseHelper(this, builder.build());
-        immerseHelper.setOnInsetsChangeListener(true, mCommonListener);
         immerseHelper.setStatusColor(Color.TRANSPARENT);
         immerseHelper.setNavigationColorRes(R.color.colorAccent);
+
+        Rect insetsRect = immerseHelper.getInsetsPadding();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
+        params.topMargin = insetsRect.top;
     }
 
     @Override
@@ -76,13 +72,4 @@ public class FullInputActivity extends AppCompatActivity {
         return true;
     }
 
-    private class CommonCallbackListener implements ConsumeInsetsFrameLayout.OnInsetsChangeListener {
-
-        @Override
-        public void onInsetsChanged(Rect insets) {
-
-            mToolbarPanel.setPadding(0, insets.top, 0, 0);
-
-        }
-    }
 }

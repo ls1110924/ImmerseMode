@@ -3,6 +3,7 @@ package com.yunxian.immerse.impl;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -136,6 +137,12 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
             setNavigationDrawable(drawable);
         }
         return true;
+    }
+
+    @NonNull
+    @Override
+    public Rect getInsetsPadding() {
+        return new Rect(0, 0, 0, 0);
     }
 
     @Override

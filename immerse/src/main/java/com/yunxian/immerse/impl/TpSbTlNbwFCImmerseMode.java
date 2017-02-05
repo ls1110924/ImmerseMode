@@ -3,6 +3,7 @@ package com.yunxian.immerse.impl;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -47,6 +48,8 @@ public class TpSbTlNbwFCImmerseMode implements IImmerseMode {
     private final View mCompatStatusBarView;
     @Nullable
     private final View mCompatNavigationBarView;
+
+    private final Rect mInsetsRect = new Rect();
 
     public TpSbTlNbwFCImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -141,6 +144,12 @@ public class TpSbTlNbwFCImmerseMode implements IImmerseMode {
         return true;
     }
 
+    @NonNull
+    @Override
+    public Rect getInsetsPadding() {
+        return mInsetsRect;
+    }
+
     @Override
     public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
 
@@ -156,8 +165,10 @@ public class TpSbTlNbwFCImmerseMode implements IImmerseMode {
 
         userView.setFitsSystemWindows(false);
 
+        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+
         View statusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ImmerseGlobalConfig.getInstance().getStatusBarHeight());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mInsetsRect.top);
         contentViewGroup.addView(statusBarView, params);
 
         return statusBarView;
@@ -178,9 +189,11 @@ public class TpSbTlNbwFCImmerseMode implements IImmerseMode {
             if (mActivityConfig.isNavigationAtBottom()) {
                 params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mActivityConfig.getNavigationBarHeight());
                 params.gravity = Gravity.BOTTOM;
+                mInsetsRect.bottom = mActivityConfig.getNavigationBarHeight();
             } else {
                 params = new FrameLayout.LayoutParams(mActivityConfig.getNavigationBarWidth(), FrameLayout.LayoutParams.MATCH_PARENT);
                 params.gravity = Gravity.RIGHT;
+                mInsetsRect.right = mActivityConfig.getNavigationBarWidth();
             }
             contentViewGroup.addView(navigationBarView, params);
         }

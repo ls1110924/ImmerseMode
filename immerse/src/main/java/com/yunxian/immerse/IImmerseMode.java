@@ -1,9 +1,11 @@
 package com.yunxian.immerse;
 
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
@@ -76,6 +78,14 @@ public interface IImmerseMode {
      * @return 设置成功，返回true；否则返回false
      */
     boolean setNavigationDrawableRes(@DrawableRes int drawableRes);
+
+    /**
+     * 用于当内容全屏沉浸时，获取Insets应有的留白
+     *
+     * @return Insets留白
+     */
+    @NonNull
+    Rect getInsetsPadding();
 
     /**
      * 设置Insets监听器，以监听fitSystemWindow事件

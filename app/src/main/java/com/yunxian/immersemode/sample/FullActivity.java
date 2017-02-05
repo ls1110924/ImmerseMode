@@ -1,6 +1,7 @@
 package com.yunxian.immersemode.sample;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
@@ -102,6 +104,10 @@ public class FullActivity extends AppCompatActivity {
 
         ExScrollView scrollView = (ExScrollView) findViewById(R.id.scroll_view);
         scrollView.setOnScrollChangeListener(mCommonListener);
+
+        LinearLayout contentLayout = (LinearLayout) findViewById(R.id.activity_full_content);
+        Rect insetsRest = mImmerseHelper.getInsetsPadding();
+        contentLayout.setPadding(0, 0, insetsRest.right, insetsRest.bottom);
     }
 
     @Override
