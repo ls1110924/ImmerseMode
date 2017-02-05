@@ -41,7 +41,7 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
 
     private final SoftReference<Activity> mActivityRef;
 
-    private final View mStatusBarView;
+    private final View mCompatStatusBarView;
 
     public TlSbNNbImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -50,12 +50,12 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
-        mStatusBarView = setupStatusBarView(activity);
+        mCompatStatusBarView = setupStatusBarView(activity);
     }
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mStatusBarView.setBackgroundColor(color);
+        mCompatStatusBarView.setBackgroundColor(color);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
 
     @Override
     public boolean setStatusDrawable(@Nullable Drawable drawable) {
-        DrawableUtils.setViewBackgroundDrawable(mStatusBarView, drawable);
+        DrawableUtils.setViewBackgroundDrawable(mCompatStatusBarView, drawable);
         return true;
     }
 

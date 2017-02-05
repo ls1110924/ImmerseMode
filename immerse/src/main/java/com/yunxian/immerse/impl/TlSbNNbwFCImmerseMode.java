@@ -41,9 +41,9 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
 
     private final SoftReference<Activity> mActivityRef;
 
-    private final View mStatusBarView;
+    private final View mCompatStatusBarView;
 
-    private final ImmerseGlobalConfig mImmerseGlobalConfig = ImmerseGlobalConfig.getInstance();
+    private final Rect mInsetsRect = new Rect();
 
     public TlSbNNbwFCImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -52,14 +52,14 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
-        mStatusBarView = setupStatusBarView(activity);
+        mCompatStatusBarView = setupStatusBarView(activity);
 
-        mStatusBarView.setBackgroundColor(Color.TRANSPARENT);
+        mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mStatusBarView.setBackgroundColor(color);
+        mCompatStatusBarView.setBackgroundColor(color);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
 
     @Override
     public boolean setStatusDrawable(@Nullable Drawable drawable) {
-        DrawableUtils.setViewBackgroundDrawable(mStatusBarView, drawable);
+        DrawableUtils.setViewBackgroundDrawable(mCompatStatusBarView, drawable);
         return true;
     }
 
@@ -117,7 +117,7 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
     @NonNull
     @Override
     public Rect getInsetsPadding() {
-        return new Rect(0, mImmerseGlobalConfig.getStatusBarHeight(), 0, 0);
+        return mInsetsRect;
     }
 
     @Override
@@ -135,8 +135,10 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
 
         userView.setFitsSystemWindows(false);
 
+        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+
         View statusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mImmerseGlobalConfig.getStatusBarHeight());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mInsetsRect.top);
         contentViewGroup.addView(statusBarView, params);
 
         return statusBarView;

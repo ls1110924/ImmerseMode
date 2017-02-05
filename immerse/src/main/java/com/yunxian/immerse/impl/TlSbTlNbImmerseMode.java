@@ -43,11 +43,10 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
 
     private final ActivityConfig mActivityConfig;
 
-    private final View mStatusBarView;
-
+    private final View mCompatStatusBarView;
     // 当一些手机没有导航栏时，该对象为空
     @Nullable
-    private final View mNavigationBarView;
+    private final View mCompatNavigationBarView;
 
     public TlSbTlNbImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -57,13 +56,13 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
 
         mActivityConfig = new ActivityConfig(activity);
-        mStatusBarView = setupStatusBarView(activity);
-        mNavigationBarView = setupNavigationBarView(activity);
+        mCompatStatusBarView = setupStatusBarView(activity);
+        mCompatNavigationBarView = setupNavigationBarView(activity);
     }
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mStatusBarView.setBackgroundColor(color);
+        mCompatStatusBarView.setBackgroundColor(color);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
 
     @Override
     public boolean setStatusDrawable(@Nullable Drawable drawable) {
-        DrawableUtils.setViewBackgroundDrawable(mStatusBarView, drawable);
+        DrawableUtils.setViewBackgroundDrawable(mCompatStatusBarView, drawable);
         return true;
     }
 
@@ -93,8 +92,8 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
 
     @Override
     public void setNavigationColor(@ColorInt int color) {
-        if (mNavigationBarView != null) {
-            mNavigationBarView.setBackgroundColor(color);
+        if (mCompatNavigationBarView != null) {
+            mCompatNavigationBarView.setBackgroundColor(color);
         }
     }
 
@@ -109,8 +108,8 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
 
     @Override
     public boolean setNavigationDrawable(@Nullable Drawable drawable) {
-        if (mNavigationBarView != null) {
-            mNavigationBarView.setBackground(drawable);
+        if (mCompatNavigationBarView != null) {
+            mCompatNavigationBarView.setBackground(drawable);
         }
         return true;
     }

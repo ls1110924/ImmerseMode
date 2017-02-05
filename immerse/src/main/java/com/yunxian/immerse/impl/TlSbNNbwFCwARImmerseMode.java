@@ -40,10 +40,10 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
     private final SoftReference<Activity> mActivityRef;
 
     private final ConsumeInsetsFrameLayout mNewUserViewGroup;
-    // 兼容性StatusBar，用作设置Drawable时兼容处理使用
+    // 兼容性StatusBar，模拟状态栏
     private final View mCompatStatusBarView;
 
-    private final ImmerseGlobalConfig mImmerseGlobalConfig = ImmerseGlobalConfig.getInstance();
+    private final Rect mInsetsRect = new Rect();
 
     public TlSbNNbwFCwARImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -118,7 +118,7 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
     @NonNull
     @Override
     public Rect getInsetsPadding() {
-        return new Rect(0, mImmerseGlobalConfig.getStatusBarHeight(), 0, 0);
+        return mInsetsRect;
     }
 
     @Override
@@ -144,8 +144,10 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
         newUserViewGroup.addView(userView);
         contentViewGroup.addView(newUserViewGroup, 0);
 
+        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+
         View statusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mImmerseGlobalConfig.getStatusBarHeight());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mInsetsRect.top);
         contentViewGroup.addView(statusBarView, params);
 
         return statusBarView;
