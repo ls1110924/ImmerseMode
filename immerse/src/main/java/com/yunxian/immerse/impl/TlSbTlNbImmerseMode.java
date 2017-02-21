@@ -56,6 +56,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
 
         mActivityConfig = new ActivityConfig(activity);
+        setupUserView(activity);
         mCompatStatusBarView = setupStatusBarView(activity);
         mCompatNavigationBarView = setupNavigationBarView(activity);
     }
@@ -135,32 +136,50 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
 
     }
 
-    @NonNull
-    private View setupStatusBarView(@NonNull Activity activity) throws IllegalStateException {
+    /**
+     * 配置Activity。主要配置Activity的用户视图对状态栏和导航栏的留白
+     *
+     * @param activity Activity对象，不可为空
+     * @throws IllegalStateException
+     */
+    private void setupUserView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
-        View userView = contentViewGroup.getChildAt(0);
-        if (userView == null) {
-            throw new IllegalStateException("Plz invode setContentView() method first!");
+        final int childViewCount = contentViewGroup.getChildCount();
+        if (childViewCount == 0) {
+            throw new IllegalStateException("Plz invoke setContentView() method first!");
+        } else if (childViewCount > 1) {
+            throw new IllegalStateException("Plz set one view in SetContentView() or shouldn't use merge tag!!");
         }
 
-        userView.setFitsSystemWindows(true);
+        View userView = contentViewGroup.getChildAt(0);
+        userView.setFitsSystemWindows(false);
+        ViewGroup.MarginLayoutParams userViewParams = (ViewGroup.MarginLayoutParams) userView.getLayoutParams();
+        userViewParams.topMargin += ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+        if (mActivityConfig.hasNavigtionBar()) {
+            if (mActivityConfig.isNavigationAtBottom()) {
+                userViewParams.bottomMargin += mActivityConfig.getNavigationBarHeight();
+            } else {
+                userViewParams.rightMargin += mActivityConfig.getNavigationBarWidth();
+            }
+        }
+        userView.setLayoutParams(userViewParams);
+    }
 
+    @NonNull
+    private View setupStatusBarView(@NonNull Activity activity) {
+        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
         View statusBarView = new View(activity);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ImmerseGlobalConfig.getInstance().getStatusBarHeight());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ImmerseGlobalConfig.getInstance().getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
-
         return statusBarView;
     }
 
     @Nullable
-    private View setupNavigationBarView(@NonNull Activity activity) throws IllegalStateException {
+    private View setupNavigationBarView(@NonNull Activity activity) {
         View navigationBarView = null;
         if (mActivityConfig.hasNavigtionBar()) {
             ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
-            View userView = contentViewGroup.getChildAt(0);
-            if (userView == null) {
-                throw new IllegalStateException("Plz invode setContentView() method first!");
-            }
 
             navigationBarView = new View(activity);
             FrameLayout.LayoutParams params;
@@ -169,7 +188,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
                 params.gravity = Gravity.BOTTOM;
             } else {
                 params = new FrameLayout.LayoutParams(mActivityConfig.getNavigationBarWidth(), FrameLayout.LayoutParams.MATCH_PARENT);
-                params.gravity = Gravity.RIGHT;
+                params.gravity = Gravity.END;
             }
             contentViewGroup.addView(navigationBarView, params);
         }
