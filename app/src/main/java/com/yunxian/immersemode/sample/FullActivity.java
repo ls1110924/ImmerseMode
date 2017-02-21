@@ -13,8 +13,6 @@ import android.widget.LinearLayout;
 
 import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
-import com.yunxian.immerse.enumeration.ImmerseConfigType;
-import com.yunxian.immerse.enumeration.StatusBarImmerseType;
 import com.yunxian.immersemode.sample.widget.ExScrollView;
 
 /**
@@ -58,42 +56,42 @@ public class FullActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String paras = bundle.getString("Mode");
         if ("NSB_NNB".equals(paras)) {
-            builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.NORMAL).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(false);
-            builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.NORMAL).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(false);
             navigationBarColor = ContextCompat.getColor(this, R.color.colorAccent);
         } else if ("TLSB_NNB_FC".equals(paras)) {
-            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(true);
-            builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(true);
             navigationBarColor = ContextCompat.getColor(this, R.color.colorAccent);
         } else if ("TLSB_TLNB_FC".equals(paras)) {
-            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.TRANSLUCENT)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.TRANSLUCENT)
                     .setFullScreenInKK(true);
-            builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.TRANSLUCENT)
+            builder.setStatusBarModeInL(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfiguration.TRANSLUCENT)
                     .setFullScreenInL(true);
             navigationBarColor = Color.TRANSPARENT;
         } else if ("TPSB_NNB_FC".equals(paras)) {
             // Kitkat不支持全透状态栏+普通导航栏，故而降级到半透状态栏+普通导航栏
-            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(true);
-            builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.TRANSPARENT).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(true);
             navigationBarColor = ContextCompat.getColor(this, R.color.colorAccent);
         } else if ("TPSB_TLNB_FC".equals(paras)) {
             // Kitkat不支持全透状态栏+半透导航栏，故而降级到半透状态栏+半透导航栏
-            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.TRANSLUCENT)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.TRANSLUCENT)
                     .setFullScreenInKK(true);
-            builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.TRANSLUCENT)
+            builder.setStatusBarModeInL(ImmerseConfiguration.TRANSPARENT).setNavigationBarModeInL(ImmerseConfiguration.TRANSLUCENT)
                     .setFullScreenInL(true);
             navigationBarColor = Color.TRANSPARENT;
         } else {
             // 补偿逻辑
-            builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.NORMAL).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(false);
-            builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.NORMAL).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(false);
             navigationBarColor = ContextCompat.getColor(this, R.color.colorAccent);
         }

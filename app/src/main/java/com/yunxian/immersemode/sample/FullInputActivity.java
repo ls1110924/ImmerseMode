@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 
 import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.ImmerseHelper;
-import com.yunxian.immerse.enumeration.ImmerseConfigType;
 
 /**
  * @author AShuai
@@ -35,20 +34,20 @@ public class FullInputActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String paras = bundle.getString("Mode");
         if ("TLSB_NNB_FC_AR".equals(paras)) {
-            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(true).setAdjustResizeInKK(true);
-            builder.setStatusBarModeInL(ImmerseConfigType.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(true).setAdjustResizeInL(true);
         } else if ("TPSB_NNB_FC_AR".equals(paras)) {
-            builder.setStatusBarModeInKK(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(true).setAdjustResizeInKK(true);
-            builder.setStatusBarModeInL(ImmerseConfigType.TRANSPARENT).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.TRANSPARENT).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(true).setAdjustResizeInL(true);
         } else {
             // 补偿逻辑
-            builder.setStatusBarModeInKK(ImmerseConfigType.NORMAL).setNavigationBarModeInKK(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInKK(ImmerseConfiguration.NORMAL).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
                     .setFullScreenInKK(false);
-            builder.setStatusBarModeInL(ImmerseConfigType.NORMAL).setNavigationBarModeInL(ImmerseConfigType.NORMAL)
+            builder.setStatusBarModeInL(ImmerseConfiguration.NORMAL).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(false);
         }
 
