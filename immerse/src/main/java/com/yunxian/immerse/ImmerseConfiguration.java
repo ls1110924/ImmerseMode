@@ -3,7 +3,6 @@ package com.yunxian.immerse;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
-import com.yunxian.immerse.enumeration.ImmerseConfigType;
 import com.yunxian.immerse.enumeration.ImmerseType;
 
 import java.lang.annotation.Retention;
@@ -34,21 +33,21 @@ public final class ImmerseConfiguration {
 
         @IntDef({NORMAL, TRANSLUCENT})
         @Retention(RetentionPolicy.SOURCE)
-        public @interface ImmerseConfigType4KK {
+        private @interface ImmerseConfigType4KK {
         }
 
         @IntDef({NORMAL, TRANSLUCENT, TRANSPARENT})
         @Retention(RetentionPolicy.SOURCE)
-        public @interface ImmerseConfigType4L {
+        private @interface ImmerseConfigType4L {
         }
 
-        private ImmerseConfigType mStatusBarModeInKK = ImmerseConfigType.NORMAL;
-        private ImmerseConfigType mNavigationBarModeInKK = ImmerseConfigType.NORMAL;
+        private int mStatusBarModeInKK = NORMAL;
+        private int mNavigationBarModeInKK = NORMAL;
         private boolean mFullScreenInKK = false;
         private boolean mAdjustResizeInKK = false;
 
-        private ImmerseConfigType mStatusBarModeInL = ImmerseConfigType.NORMAL;
-        private ImmerseConfigType mNavigationBarModeInL = ImmerseConfigType.NORMAL;
+        private int mStatusBarModeInL = NORMAL;
+        private int mNavigationBarModeInL = NORMAL;
         private boolean mFullScreenInL = false;
         private boolean mAdjustResizeInL = false;
 
@@ -56,12 +55,12 @@ public final class ImmerseConfiguration {
         }
 
         public Builder setStatusBarModeInKK(@ImmerseConfigType4KK int statusBarModeInKK) {
-            this.mStatusBarModeInKK = ImmerseConfigType.getImmerseConfigType(statusBarModeInKK);
+            this.mStatusBarModeInKK = statusBarModeInKK;
             return this;
         }
 
         public Builder setNavigationBarModeInKK(@ImmerseConfigType4KK int navigationBarModeInKK) {
-            this.mNavigationBarModeInKK = ImmerseConfigType.getImmerseConfigType(navigationBarModeInKK);
+            this.mNavigationBarModeInKK = navigationBarModeInKK;
             return this;
         }
 
@@ -76,12 +75,12 @@ public final class ImmerseConfiguration {
         }
 
         public Builder setStatusBarModeInL(@ImmerseConfigType4L int statusBarModeInL) {
-            this.mStatusBarModeInL = ImmerseConfigType.getImmerseConfigType(statusBarModeInL);
+            this.mStatusBarModeInL = statusBarModeInL;
             return this;
         }
 
         public Builder setNavigationBarModeInL(@ImmerseConfigType4L int navigationBarModeInL) {
-            this.mNavigationBarModeInL = ImmerseConfigType.getImmerseConfigType(navigationBarModeInL);
+            this.mNavigationBarModeInL = navigationBarModeInL;
             return this;
         }
 
@@ -99,27 +98,27 @@ public final class ImmerseConfiguration {
             ImmerseType immerseTypeInKK;
             ImmerseType immerseTypeInL;
 
-            if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT && mFullScreenInKK && mAdjustResizeInKK) {
+            if (mStatusBarModeInKK == TRANSLUCENT && mFullScreenInKK && mAdjustResizeInKK) {
                 immerseTypeInKK = ImmerseType.TLSB_NNB_FC_AR;
-            } else if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT && mNavigationBarModeInKK == ImmerseConfigType.TRANSLUCENT) {
+            } else if (mStatusBarModeInKK == TRANSLUCENT && mNavigationBarModeInKK == TRANSLUCENT) {
                 immerseTypeInKK = mFullScreenInKK ? ImmerseType.TLSB_TLNB_FC : ImmerseType.TLSB_TLNB;
-            } else if (mStatusBarModeInKK == ImmerseConfigType.TRANSLUCENT) {
+            } else if (mStatusBarModeInKK == TRANSLUCENT) {
                 immerseTypeInKK = mFullScreenInKK ? ImmerseType.TLSB_NNB_FC : ImmerseType.TLSB_NNB;
             } else {
                 immerseTypeInKK = ImmerseType.NSB_NNB;
             }
 
-            if (mStatusBarModeInL == ImmerseConfigType.TRANSLUCENT && mFullScreenInL && mAdjustResizeInL) {
+            if (mStatusBarModeInL == TRANSLUCENT && mFullScreenInL && mAdjustResizeInL) {
                 immerseTypeInL = ImmerseType.TLSB_NNB_FC_AR;
-            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT && mFullScreenInL && mAdjustResizeInL) {
+            } else if (mStatusBarModeInL == TRANSPARENT && mFullScreenInL && mAdjustResizeInL) {
                 immerseTypeInL = ImmerseType.TPSB_NNB_FC_AR;
-            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT && mNavigationBarModeInL == ImmerseConfigType.TRANSLUCENT) {
+            } else if (mStatusBarModeInL == TRANSPARENT && mNavigationBarModeInL == TRANSLUCENT) {
                 immerseTypeInL = mFullScreenInL ? ImmerseType.TPSB_TLNB_FC : ImmerseType.TPSB_TLNB;
-            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSPARENT) {
+            } else if (mStatusBarModeInL == TRANSPARENT) {
                 immerseTypeInL = mFullScreenInL ? ImmerseType.TPSB_NNB_FC : ImmerseType.TPSB_NNB;
-            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSLUCENT && mNavigationBarModeInL == ImmerseConfigType.TRANSLUCENT) {
+            } else if (mStatusBarModeInL == TRANSLUCENT && mNavigationBarModeInL == TRANSLUCENT) {
                 immerseTypeInL = mFullScreenInL ? ImmerseType.TLSB_TLNB_FC : ImmerseType.TLSB_TLNB;
-            } else if (mStatusBarModeInL == ImmerseConfigType.TRANSLUCENT) {
+            } else if (mStatusBarModeInL == TRANSLUCENT) {
                 immerseTypeInL = mFullScreenInL ? ImmerseType.TLSB_NNB_FC : ImmerseType.TLSB_NNB;
             } else {
                 immerseTypeInL = ImmerseType.NSB_NNB;
