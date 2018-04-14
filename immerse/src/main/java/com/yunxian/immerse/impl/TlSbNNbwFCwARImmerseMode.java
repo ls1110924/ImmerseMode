@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
@@ -132,10 +133,17 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
 
     @NonNull
     private View setupStatusBarView(@NonNull Activity activity, @NonNull ConsumeInsetsFrameLayout newUserViewGroup) {
+        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+        View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
+        if (statusBarView != null) {
+            return statusBarView;
+        }
+
         View userView = contentViewGroup.getChildAt(0);
         if (userView == null) {
-            throw new IllegalStateException("Plz invode setContentView() method first!");
+            throw new IllegalStateException("plz invoke setContentView() method first!");
         }
 
         newUserViewGroup.setFitsSystemWindows(true);
@@ -144,9 +152,8 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
         newUserViewGroup.addView(userView);
         contentViewGroup.addView(newUserViewGroup, 0);
 
-        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
-
-        View statusBarView = new View(activity);
+        statusBarView = new View(activity);
+        statusBarView.setId(R.id.immerse_compat_status_bar);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mInsetsRect.top);
         contentViewGroup.addView(statusBarView, params);
 

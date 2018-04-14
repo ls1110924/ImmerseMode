@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ActivityConfig;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 import com.yunxian.immerse.utils.DrawableUtils;
@@ -56,9 +58,9 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
 
         mActivityConfig = new ActivityConfig(activity);
-        setupUserView(activity);
-        mCompatStatusBarView = setupStatusBarView(activity);
-        mCompatNavigationBarView = setupNavigationBarView(activity);
+        Pair<View, View> viewPair = setupUserView(activity);
+        mCompatStatusBarView = viewPair.first;
+        mCompatNavigationBarView = viewPair.second;
     }
 
     @Override
@@ -140,10 +142,19 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
      * 配置Activity。主要配置Activity的用户视图对状态栏和导航栏的留白
      *
      * @param activity Activity对象，不可为空
+     * @return 状态栏和导航栏
      * @throws IllegalStateException
      */
-    private void setupUserView(@NonNull Activity activity) throws IllegalStateException {
+    private Pair<View, View> setupUserView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+
+        View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
+        View navigationBarView = contentViewGroup.findViewById(R.id.immerse_compat_navigation_bar);
+
+        if (statusBarView != null) {
+            return new Pair<>(statusBarView, navigationBarView);
+        }
+
         final int childViewCount = contentViewGroup.getChildCount();
         if (childViewCount == 0) {
             throw new IllegalStateException("Plz invoke setContentView() method first!");
@@ -163,12 +174,16 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
             }
         }
         userView.setLayoutParams(userViewParams);
+
+        statusBarView = setupStatusBarView(activity, contentViewGroup);
+        navigationBarView = setupNavigationBarView(activity, contentViewGroup);
+        return new Pair<>(statusBarView, navigationBarView);
     }
 
     @NonNull
-    private View setupStatusBarView(@NonNull Activity activity) {
-        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+    private View setupStatusBarView(@NonNull Activity activity, @NonNull ViewGroup contentViewGroup) {
         View statusBarView = new View(activity);
+        statusBarView.setId(R.id.immerse_compat_status_bar);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ImmerseGlobalConfig.getInstance().getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
@@ -176,12 +191,12 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
     }
 
     @Nullable
-    private View setupNavigationBarView(@NonNull Activity activity) {
+    private View setupNavigationBarView(@NonNull Activity activity, @NonNull ViewGroup contentViewGroup) {
         View navigationBarView = null;
         if (mActivityConfig.hasNavigtionBar()) {
-            ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
 
             navigationBarView = new View(activity);
+            navigationBarView.setId(R.id.immerse_compat_navigation_bar);
             FrameLayout.LayoutParams params;
             if (mActivityConfig.isNavigationAtBottom()) {
                 params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mActivityConfig.getNavigationBarHeight());

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 import com.yunxian.immerse.utils.DrawableUtils;
 import com.yunxian.immerse.utils.WindowUtils;
@@ -50,8 +51,7 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
-        setupUserView(activity);
-        mCompatStatusBarView = setupStatusBarView(activity);
+        mCompatStatusBarView = setupUserView(activity);
     }
 
     @Override
@@ -128,13 +128,20 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
      * @param activity Activity对象，不可为空
      * @throws IllegalStateException
      */
-    private void setupUserView(@NonNull Activity activity) throws IllegalStateException {
+    @NonNull
+    private View setupUserView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+
+        View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
+        if (statusBarView != null) {
+            return statusBarView;
+        }
+
         final int childViewCount = contentViewGroup.getChildCount();
         if (childViewCount == 0) {
-            throw new IllegalStateException("Plz invoke setContentView() method first!");
+            throw new IllegalStateException("plz invoke setContentView() method first!");
         } else if (childViewCount > 1) {
-            throw new IllegalStateException("Plz set one view in SetContentView() or shouldn't use merge tag!!");
+            throw new IllegalStateException("plz set one view in setContentView() or shouldn't use merge tag!!");
         }
 
         View userView = contentViewGroup.getChildAt(0);
@@ -142,12 +149,9 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
         ViewGroup.MarginLayoutParams userViewParams = (ViewGroup.MarginLayoutParams) userView.getLayoutParams();
         userViewParams.topMargin += ImmerseGlobalConfig.getInstance().getStatusBarHeight();
         userView.setLayoutParams(userViewParams);
-    }
 
-    @NonNull
-    private View setupStatusBarView(@NonNull Activity activity) {
-        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
-        View statusBarView = new View(activity);
+        statusBarView = new View(activity);
+        statusBarView.setId(R.id.immerse_compat_status_bar);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ImmerseGlobalConfig.getInstance().getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
