@@ -35,12 +35,12 @@ public class FullInputActivity extends AppCompatActivity {
         String paras = bundle.getString("Mode");
         if ("TLSB_NNB_FC_AR".equals(paras)) {
             builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
-                    .setFullScreenInKK(true).setAdjustResizeInKK(true);
+                    .setFullScreenInKK(false).setAdjustResizeInKK(true);
             builder.setStatusBarModeInL(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(true).setAdjustResizeInL(true);
         } else if ("TPSB_NNB_FC_AR".equals(paras)) {
             builder.setStatusBarModeInKK(ImmerseConfiguration.TRANSLUCENT).setNavigationBarModeInKK(ImmerseConfiguration.NORMAL)
-                    .setFullScreenInKK(true).setAdjustResizeInKK(true);
+                    .setFullScreenInKK(false).setAdjustResizeInKK(true);
             builder.setStatusBarModeInL(ImmerseConfiguration.TRANSPARENT).setNavigationBarModeInL(ImmerseConfiguration.NORMAL)
                     .setFullScreenInL(true).setAdjustResizeInL(true);
         } else {
