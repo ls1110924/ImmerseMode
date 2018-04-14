@@ -51,7 +51,7 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
-        mCompatStatusBarView = setupUserView(activity);
+        mCompatStatusBarView = setupView(activity);
     }
 
     @Override
@@ -118,18 +118,19 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
     }
 
     @Override
-    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
-
+    public void setOnInsetsChangeListener(boolean operation,
+                                          @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
     }
 
     /**
      * 配置Activity。主要配置Activity的用户视图对状态栏和导航栏的留白
      *
      * @param activity Activity对象，不可为空
+     * @return 状态栏
      * @throws IllegalStateException
      */
     @NonNull
-    private View setupUserView(@NonNull Activity activity) throws IllegalStateException {
+    private View setupView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);

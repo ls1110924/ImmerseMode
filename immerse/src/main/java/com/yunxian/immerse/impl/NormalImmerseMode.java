@@ -60,8 +60,7 @@ public class NormalImmerseMode implements IImmerseMode {
     public void setStatusColorRes(@ColorRes int colorRes) {
         Activity activity = mActivityRef.get();
         if (activity != null) {
-            int color = ContextCompat.getColor(activity, colorRes);
-            setStatusColor(color);
+            setStatusColor(ContextCompat.getColor(activity, colorRes));
         }
     }
 
@@ -87,8 +86,7 @@ public class NormalImmerseMode implements IImmerseMode {
     public void setNavigationColorRes(@ColorRes int colorRes) {
         Activity activity = mActivityRef.get();
         if (activity != null) {
-            int color = ContextCompat.getColor(activity, colorRes);
-            setNavigationColor(color);
+            setNavigationColor(ContextCompat.getColor(activity, colorRes));
         }
     }
 
@@ -109,6 +107,7 @@ public class NormalImmerseMode implements IImmerseMode {
     }
 
     @Override
-    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
+    public void setOnInsetsChangeListener(boolean operation,
+                                          @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
     }
 }

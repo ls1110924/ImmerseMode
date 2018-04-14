@@ -44,7 +44,8 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
     // 兼容性StatusBar，模拟状态栏
     private final View mCompatStatusBarView;
 
-    private final Rect mInsetsRect = new Rect();
+    @Nullable
+    private Rect mInsetsRect = null;
 
     public TlSbNNbwFCwARImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -54,8 +55,7 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
 
         mNewUserViewGroup = new ConsumeInsetsFrameLayout(activity);
-        mCompatStatusBarView = setupStatusBarView(activity, mNewUserViewGroup);
-
+        mCompatStatusBarView = setupView(activity, mNewUserViewGroup);
         mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -119,11 +119,16 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
     @NonNull
     @Override
     public Rect getInsetsPadding() {
+        if (mInsetsRect == null) {
+            mInsetsRect = new Rect();
+            mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+        }
         return mInsetsRect;
     }
 
     @Override
-    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
+    public void setOnInsetsChangeListener(boolean operation,
+                                          @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
         if (operation) {
             mNewUserViewGroup.addOnInsetsChangeListener(listener);
         } else {
@@ -132,10 +137,9 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
     }
 
     @NonNull
-    private View setupStatusBarView(@NonNull Activity activity, @NonNull ConsumeInsetsFrameLayout newUserViewGroup) {
-        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
-
+    private View setupView(@NonNull Activity activity, @NonNull ConsumeInsetsFrameLayout newUserViewGroup) {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
         if (statusBarView != null) {
             return statusBarView;
@@ -154,7 +158,8 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
 
         statusBarView = new View(activity);
         statusBarView.setId(R.id.immerse_compat_status_bar);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mInsetsRect.top);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ImmerseGlobalConfig.getInstance().getStatusBarHeight());
         contentViewGroup.addView(statusBarView, params);
 
         return statusBarView;

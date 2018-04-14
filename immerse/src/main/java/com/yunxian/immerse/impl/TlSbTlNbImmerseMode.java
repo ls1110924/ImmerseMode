@@ -58,7 +58,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
 
         mActivityConfig = new ActivityConfig(activity);
-        Pair<View, View> viewPair = setupUserView(activity);
+        Pair<View, View> viewPair = setupView(activity);
         mCompatStatusBarView = viewPair.first;
         mCompatNavigationBarView = viewPair.second;
     }
@@ -134,8 +134,8 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
     }
 
     @Override
-    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
-
+    public void setOnInsetsChangeListener(boolean operation,
+                                          @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
     }
 
     /**
@@ -145,7 +145,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
      * @return 状态栏和导航栏
      * @throws IllegalStateException
      */
-    private Pair<View, View> setupUserView(@NonNull Activity activity) throws IllegalStateException {
+    private Pair<View, View> setupView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
@@ -159,7 +159,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         if (childViewCount == 0) {
             throw new IllegalStateException("Plz invoke setContentView() method first!");
         } else if (childViewCount > 1) {
-            throw new IllegalStateException("Plz set one view in SetContentView() or shouldn't use merge tag!!");
+            throw new IllegalStateException("Plz set one view in setContentView() or shouldn't use merge tag!!");
         }
 
         View userView = contentViewGroup.getChildAt(0);
@@ -194,7 +194,6 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
     private View setupNavigationBarView(@NonNull Activity activity, @NonNull ViewGroup contentViewGroup) {
         View navigationBarView = null;
         if (mActivityConfig.hasNavigtionBar()) {
-
             navigationBarView = new View(activity);
             navigationBarView.setId(R.id.immerse_compat_navigation_bar);
             FrameLayout.LayoutParams params;
@@ -202,7 +201,8 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
                 params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mActivityConfig.getNavigationBarHeight());
                 params.gravity = Gravity.BOTTOM;
             } else {
-                params = new FrameLayout.LayoutParams(mActivityConfig.getNavigationBarWidth(), FrameLayout.LayoutParams.MATCH_PARENT);
+                params = new FrameLayout.LayoutParams(mActivityConfig.getNavigationBarWidth(),
+                        FrameLayout.LayoutParams.MATCH_PARENT);
                 params.gravity = Gravity.END;
             }
             contentViewGroup.addView(navigationBarView, params);

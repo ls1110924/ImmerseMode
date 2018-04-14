@@ -64,7 +64,7 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
         window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         mActivityConfig = new ActivityConfig(activity);
-        Pair<View, View> viewPair = setupUserView(activity);
+        Pair<View, View> viewPair = setupView(activity);
         mCompatStatusBarView = viewPair.first;
         mCompatNavigationBarView = viewPair.second;
 
@@ -150,7 +150,6 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
 
     @Override
     public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
-
     }
 
     /**
@@ -159,7 +158,7 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
      * @param activity Activity对象，不可为空
      * @throws IllegalStateException
      */
-    private Pair<View, View> setupUserView(@NonNull Activity activity) throws IllegalStateException {
+    private Pair<View, View> setupView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
@@ -209,15 +208,16 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
     private View setupNavigationBarView(@NonNull Activity activity, ViewGroup contentViewGroup) {
         View navigationBarView = null;
         if (mActivityConfig.hasNavigtionBar()) {
-
             navigationBarView = new View(activity);
             navigationBarView.setId(R.id.immerse_compat_navigation_bar);
             FrameLayout.LayoutParams params;
             if (mActivityConfig.isNavigationAtBottom()) {
-                params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mActivityConfig.getNavigationBarHeight());
+                params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                        mActivityConfig.getNavigationBarHeight());
                 params.gravity = Gravity.BOTTOM;
             } else {
-                params = new FrameLayout.LayoutParams(mActivityConfig.getNavigationBarWidth(), FrameLayout.LayoutParams.MATCH_PARENT);
+                params = new FrameLayout.LayoutParams(mActivityConfig.getNavigationBarWidth(),
+                        FrameLayout.LayoutParams.MATCH_PARENT);
                 params.gravity = Gravity.END;
             }
             contentViewGroup.addView(navigationBarView, params);

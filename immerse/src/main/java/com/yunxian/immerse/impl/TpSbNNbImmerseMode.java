@@ -55,7 +55,7 @@ public class TpSbNNbImmerseMode implements IImmerseMode {
 
         window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        mCompatStatusBarView = setupUserView(activity);
+        mCompatStatusBarView = setupView(activity);
         mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -130,7 +130,8 @@ public class TpSbNNbImmerseMode implements IImmerseMode {
     }
 
     @Override
-    public void setOnInsetsChangeListener(boolean operation, @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
+    public void setOnInsetsChangeListener(boolean operation,
+                                          @Nullable ConsumeInsetsFrameLayout.OnInsetsChangeListener listener) {
     }
 
     /**
@@ -141,7 +142,7 @@ public class TpSbNNbImmerseMode implements IImmerseMode {
      * @throws IllegalStateException
      */
     @NonNull
-    private View setupUserView(@NonNull Activity activity) throws IllegalStateException {
+    private View setupView(@NonNull Activity activity) throws IllegalStateException {
         ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
