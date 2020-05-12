@@ -1,0 +1,8 @@
+def isAndroidProject() {
+    def plugins = project.getPlugins()
+    return plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')
+}
+
+ext {
+    isAndroidProject = this.&isAndroidProject
+}

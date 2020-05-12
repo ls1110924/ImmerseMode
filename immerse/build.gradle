@@ -34,3 +34,5 @@ dependencies {
     api "androidx.annotation:annotation:${androidx}"
     api "androidx.core:core:${androidx}"
 }
+
+apply from: rootProject.file('./gradle/publish.gradle')

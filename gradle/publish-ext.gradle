@@ -1,0 +1,42 @@
+/**
+ * 基础值定义
+ * 临时升级属性可以在local.properties中定义
+ */
+
+ext {
+
+    PROJECT_GROUP = 'com.yunxian.android.lib'
+//    PROJECT_ARTIFACT_ID = ''
+    PROJECT_VERSION = '0.3.0'
+
+//    PROJECT_PACKAGE = ''    // aar 或者 jar
+//    PROJECT_NAME = ''
+//    PROJECT_DESCRIPTION = ''
+
+    PROJECT_WEBSITE = 'https://github.com/ls1110924/ImmerseMode'
+    PROJECT_VCS = 'https://github.com/ls1110924/ImmerseMode.git'
+    PROJECT_ISSUE_TRACKER = 'https://github.com/ls1110924/ImmerseMode/issues'
+
+    DEVELOPER_ID = 'yunxian'
+    DEVELOPER_NAME = 'yunxian'
+    DEVELOPER_EMAIL = 'ls1110924@gmail.com'
+
+    BINTRAY_USER = ''
+    BINTRAY_KEY = ''
+    BINTRAY_ORG = ''
+    BINTRAY_REPO = ''
+//    BINTRAY_NAME = ''
+
+}
+
+ExtraPropertiesExtension extension = project.extensions.extraProperties
+Properties properties = new Properties()
+File file = project.rootProject.file('local.properties')
+if (file.exists()) {
+    properties.load(file.newDataInputStream())
+    for (String key : properties.keys()) {
+        if (extension.has(key)) {
+            extension.set(key, properties.getProperty(key))
+        }
+    }
+}
