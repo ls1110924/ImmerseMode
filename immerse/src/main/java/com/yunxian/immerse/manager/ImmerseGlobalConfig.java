@@ -2,7 +2,8 @@ package com.yunxian.immerse.manager;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.yunxian.immerse.R;
 import com.yunxian.immerse.utils.ResourcesUtils;

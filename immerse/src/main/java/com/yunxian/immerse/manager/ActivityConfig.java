@@ -6,9 +6,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.ViewConfiguration;
+
+import androidx.annotation.NonNull;
 
 import com.yunxian.immerse.utils.ResourcesUtils;
 

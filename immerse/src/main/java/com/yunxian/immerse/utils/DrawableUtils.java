@@ -2,8 +2,9 @@ package com.yunxian.immerse.utils;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 /**
  * Drawable工具类

@@ -1,7 +1,7 @@
 package com.yunxian.immerse;
 
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
 
 import com.yunxian.immerse.enumeration.ImmerseType;
 

@@ -1,8 +1,9 @@
 package com.yunxian.immerse.utils;
 
-import android.support.annotation.NonNull;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 /**
  * Window相关工具类

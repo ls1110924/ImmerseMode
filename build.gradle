@@ -24,6 +24,10 @@ allprojects {
     }
 }
 
+subprojects { project ->
+    apply from: rootProject.file('./gradle/version.gradle')
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
