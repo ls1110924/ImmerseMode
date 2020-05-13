@@ -167,7 +167,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
         userView.setFitsSystemWindows(false);
         ViewGroup.MarginLayoutParams userViewParams = (ViewGroup.MarginLayoutParams) userView.getLayoutParams();
         userViewParams.topMargin += ImmerseGlobalConfig.getInstance().getStatusBarHeight();
-        if (mActivityConfig.hasNavigtionBar()) {
+        if (mActivityConfig.hasNavigationBar()) {
             if (mActivityConfig.isNavigationAtBottom()) {
                 userViewParams.bottomMargin += mActivityConfig.getNavigationBarHeight();
             } else {
@@ -194,7 +194,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
     @Nullable
     private View setupNavigationBarView(@NonNull Activity activity, @NonNull ViewGroup contentViewGroup) {
         View navigationBarView = null;
-        if (mActivityConfig.hasNavigtionBar()) {
+        if (mActivityConfig.hasNavigationBar()) {
             navigationBarView = new View(activity);
             navigationBarView.setId(R.id.immerse_compat_navigation_bar);
             FrameLayout.LayoutParams params;

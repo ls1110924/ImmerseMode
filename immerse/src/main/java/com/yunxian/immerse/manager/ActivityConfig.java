@@ -67,7 +67,7 @@ public class ActivityConfig {
         mHasNavigationBar = mNavigationBarHeight > 0;
     }
 
-    public boolean hasNavigtionBar() {
+    public boolean hasNavigationBar() {
         return mHasNavigationBar;
     }
 

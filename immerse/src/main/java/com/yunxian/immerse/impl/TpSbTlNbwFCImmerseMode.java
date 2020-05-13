@@ -155,7 +155,7 @@ public class TpSbTlNbwFCImmerseMode implements IImmerseMode {
             mInsetsRect = new Rect();
 
             mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
-            if (mActivityConfig.hasNavigtionBar()) {
+            if (mActivityConfig.hasNavigationBar()) {
                 if (mActivityConfig.isNavigationAtBottom()) {
                     mInsetsRect.bottom = mActivityConfig.getNavigationBarHeight();
                 } else {
@@ -202,7 +202,7 @@ public class TpSbTlNbwFCImmerseMode implements IImmerseMode {
     @Nullable
     private View setupNavigationBarView(@NonNull Activity activity, ViewGroup contentViewGroup) {
         View navigationBarView = null;
-        if (mActivityConfig.hasNavigtionBar()) {
+        if (mActivityConfig.hasNavigationBar()) {
             navigationBarView = new View(activity);
             FrameLayout.LayoutParams params;
             if (mActivityConfig.isNavigationAtBottom()) {
