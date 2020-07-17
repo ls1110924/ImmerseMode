@@ -43,7 +43,7 @@ public final class ResourcesUtils {
      * @param key             Dimen类型的Key值
      * @param defPackage      所属的包名，系统默认包名为<font color='red'>android</font>
      * @param defaultDimenRes 默认值对应的资源Id。当key不存在时，则返回该默认值
-     * @return
+     * @return Dimen值对应的像素大小，若未找到或出错，返回-1
      */
     public static int getDimensionSize(@NonNull Resources res, @Nullable String key, @NonNull String defPackage, @DimenRes int defaultDimenRes) {
         int dimensions = getDimensionSize(res, key, defPackage);

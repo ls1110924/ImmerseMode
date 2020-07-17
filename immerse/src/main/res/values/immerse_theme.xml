@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="CUNTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarSize">@dimen/immerse_actionbar_height</item>
-        <item name="android:actionBarSize" tools:ignore="NewApi">
-            @dimen/immerse_actionbar_height
-        </item>
+<!--    <style name="CUNTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        <item name="actionBarSize">@dimen/immerse_actionbar_height</item>-->
+<!--        <item name="android:actionBarSize" tools:ignore="NewApi">-->
+<!--            @dimen/immerse_actionbar_height-->
+<!--        </item>-->
 
-        <item name="actionBarStyle">@style/immerse_ActionBarStyle</item>
-        <item name="android:actionBarStyle" tools:ignore="NewApi">
-            @style/immerse_ActionBarStyle
-        </item>
+<!--        <item name="actionBarStyle">@style/immerse_ActionBarStyle</item>-->
+<!--        <item name="android:actionBarStyle" tools:ignore="NewApi">-->
+<!--            @style/immerse_ActionBarStyle-->
+<!--        </item>-->
 
-        <item name="toolbarStyle">@style/immerse_ToolbarStyle</item>
-    </style>
+<!--        <item name="toolbarStyle">@style/immerse_ToolbarStyle</item>-->
+<!--    </style>-->
 
-    <style name="immerse_ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="titleTextStyle">@style/immerse_ActionBarTitleStyle</item>
-        <item name="android:titleTextStyle" tools:ignore="NewApi">
-            @style/immerse_ActionBarTitleStyle
-        </item>
+<!--    <style name="immerse_ActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">-->
+<!--        <item name="titleTextStyle">@style/immerse_ActionBarTitleStyle</item>-->
+<!--        <item name="android:titleTextStyle" tools:ignore="NewApi">-->
+<!--            @style/immerse_ActionBarTitleStyle-->
+<!--        </item>-->
 
-        <item name="subtitleTextStyle">@style/immerse_ActionBarSubTitleStyle</item>
-        <item name="android:subtitleTextStyle" tools:ignore="NewApi">
-            @style/immerse_ActionBarSubTitleStyle
-        </item>
-    </style>
+<!--        <item name="subtitleTextStyle">@style/immerse_ActionBarSubTitleStyle</item>-->
+<!--        <item name="android:subtitleTextStyle" tools:ignore="NewApi">-->
+<!--            @style/immerse_ActionBarSubTitleStyle-->
+<!--        </item>-->
+<!--    </style>-->
 
-    <style name="immerse_ActionBarTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">@dimen/immerse_actionbar_title_size</item>
-    </style>
+<!--    <style name="immerse_ActionBarTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">-->
+<!--        <item name="android:textSize">@dimen/immerse_actionbar_title_size</item>-->
+<!--    </style>-->
 
-    <style name="immerse_ActionBarSubTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
-        <item name="android:textSize">@dimen/immerse_actionbar_subtitle_size</item>
-    </style>
+<!--    <style name="immerse_ActionBarSubTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">-->
+<!--        <item name="android:textSize">@dimen/immerse_actionbar_subtitle_size</item>-->
+<!--    </style>-->
 
-    <style name="immerse_ToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="titleTextAppearance">@style/immerse_ToolbarTitleStyle</item>
-        <item name="android:titleTextAppearance" tools:ignore="NewApi">
-            @style/immerse_ToolbarTitleStyle
-        </item>
+<!--    <style name="immerse_ToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">-->
+<!--        <item name="titleTextAppearance">@style/immerse_ToolbarTitleStyle</item>-->
+<!--        <item name="android:titleTextAppearance" tools:ignore="NewApi">-->
+<!--            @style/immerse_ToolbarTitleStyle-->
+<!--        </item>-->
 
-        <item name="subtitleTextAppearance">@style/immerse_ToolbarSubTitleStyle</item>
-        <item name="android:subtitleTextAppearance" tools:ignore="NewApi">
-            @style/immerse_ToolbarSubTitleStyle
-        </item>
-    </style>
+<!--        <item name="subtitleTextAppearance">@style/immerse_ToolbarSubTitleStyle</item>-->
+<!--        <item name="android:subtitleTextAppearance" tools:ignore="NewApi">-->
+<!--            @style/immerse_ToolbarSubTitleStyle-->
+<!--        </item>-->
+<!--    </style>-->
 
-    <style name="immerse_ToolbarTitleStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">@dimen/immerse_actionbar_title_size</item>
-    </style>
+<!--    <style name="immerse_ToolbarTitleStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">-->
+<!--        <item name="android:textSize">@dimen/immerse_actionbar_title_size</item>-->
+<!--    </style>-->
 
-    <style name="immerse_ToolbarSubTitleStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="android:textSize">@dimen/immerse_actionbar_subtitle_size</item>
-    </style>
+<!--    <style name="immerse_ToolbarSubTitleStyle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">-->
+<!--        <item name="android:textSize">@dimen/immerse_actionbar_subtitle_size</item>-->
+<!--    </style>-->
 
-    <!-- 普通主题（带ActionBar） -->
-    <style name="CUNTheme.ActionBar" parent="CUNTheme" />
+<!--    &lt;!&ndash; 普通主题（带ActionBar） &ndash;&gt;-->
+<!--    <style name="CUNTheme.ActionBar" parent="CUNTheme" />-->
 
-    <!-- 普通主题（不带ActionBar） -->
-    <style name="CUNTheme.NoActionBar" parent="CUNTheme">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowActionBar" tools:ignore="NewApi">false</item>
+<!--    &lt;!&ndash; 普通主题（不带ActionBar） &ndash;&gt;-->
+<!--    <style name="CUNTheme.NoActionBar" parent="CUNTheme">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="android:windowActionBar" tools:ignore="NewApi">false</item>-->
 
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="android:windowNoTitle">true</item>-->
+<!--    </style>-->
 
-    <!-- 半沉浸主题（半透明状态栏） -->
-    <style name="CUNTheme.AsemiImmersedWithTranslucent" parent="CUNTheme.NoActionBar" />
+<!--    &lt;!&ndash; 半沉浸主题（半透明状态栏） &ndash;&gt;-->
+<!--    <style name="CUNTheme.AsemiImmersedWithTranslucent" parent="CUNTheme.NoActionBar" />-->
 
-    <!-- 半沉浸主题（透明状态栏。注：4.4上等价为AsemiImmersedWithTranslucent，5.0以上才为透明状态栏） -->
-    <style name="CUNTheme.AsemiImmersedWithTransparent" parent="CUNTheme.NoActionBar" />
+<!--    &lt;!&ndash; 半沉浸主题（透明状态栏。注：4.4上等价为AsemiImmersedWithTranslucent，5.0以上才为透明状态栏） &ndash;&gt;-->
+<!--    <style name="CUNTheme.AsemiImmersedWithTransparent" parent="CUNTheme.NoActionBar" />-->
 
-    <!-- AppBarLayout使用的主题 -->
-    <style name="CunThemeOverlay.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+<!--    &lt;!&ndash; AppBarLayout使用的主题 &ndash;&gt;-->
+<!--    <style name="CunThemeOverlay.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
-    <!-- Toolbar上菜单弹出的主题 -->
-    <style name="CunThemeOverlay.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    &lt;!&ndash; Toolbar上菜单弹出的主题 &ndash;&gt;-->
+<!--    <style name="CunThemeOverlay.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
 </resources>

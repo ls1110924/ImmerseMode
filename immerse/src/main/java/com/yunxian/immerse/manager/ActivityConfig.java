@@ -36,7 +36,7 @@ public class ActivityConfig {
         // See https://github.com/android/platform_frameworks_base/blob/master/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java#L1076
         if (SDK_INT >= KITKAT) {
             try {
-                Class c = Class.forName("android.os.SystemProperties");
+                Class<?> c = Class.forName("android.os.SystemProperties");
                 Method m = c.getDeclaredMethod("get", String.class);
                 m.setAccessible(true);
                 sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
@@ -52,31 +52,28 @@ public class ActivityConfig {
     private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
 
 
-    private final boolean mInPortrait;
+    private final Activity activity;
+    private final Resources resources;
     private final float mSmallestWidthDp;
-    private final boolean mHasNavigationBar;
-    private final int mNavigationBarHeight;
     private final int mNavigationBarWidth;
 
     public ActivityConfig(@NonNull Activity activity) {
-        Resources res = activity.getResources();
-        mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+        this.activity = activity;
+        resources = activity.getResources();
         mSmallestWidthDp = getSmallestWidthDp(activity);
-        mNavigationBarHeight = getNavigationBarHeight(activity);
         mNavigationBarWidth = getNavigationBarWidth(activity);
-        mHasNavigationBar = mNavigationBarHeight > 0;
     }
 
     public boolean hasNavigationBar() {
-        return mHasNavigationBar;
+        return getNavigationBarHeight(activity) > 0;
     }
 
     public boolean isNavigationAtBottom() {
-        return (mSmallestWidthDp >= 600 || mInPortrait);
+        return (mSmallestWidthDp >= 600 || resources.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
     public int getNavigationBarHeight() {
-        return mNavigationBarHeight;
+        return getNavigationBarHeight(activity);
     }
 
     public int getNavigationBarWidth() {
@@ -97,17 +94,17 @@ public class ActivityConfig {
     }
 
     private int getNavigationBarHeight(Context context) {
-        Resources res = context.getResources();
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             if (hasNavBar(context)) {
                 String key;
-                if (mInPortrait) {
+                // 这里需要加上平板的判断
+                if (isNavigationAtBottom()) {
                     key = NAV_BAR_HEIGHT_RES_NAME;
                 } else {
                     key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
                 }
-                return ResourcesUtils.getDimensionSize(res, key, "android");
+                return ResourcesUtils.getDimensionSize(resources, key, "android");
             }
         }
         return result;

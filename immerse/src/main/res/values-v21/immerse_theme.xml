@@ -2,28 +2,28 @@
 <resources>
 
     <!-- 带ActionBar的主题 -->
-    <style name="CUNTheme.ActionBar" parent="CUNTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
+<!--    <style name="CUNTheme.ActionBar" parent="CUNTheme">-->
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--    </style>-->
 
-    <style name="CUNTheme.NoActionBar" parent="CUNTheme">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowActionBar">false</item>
+<!--    <style name="CUNTheme.NoActionBar" parent="CUNTheme">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="android:windowActionBar">false</item>-->
 
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowNoTitle">true</item>
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="android:windowNoTitle">true</item>-->
 
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    </style>
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--    </style>-->
 
-    <style name="CUNTheme.AsemiImmersedWithTranslucent" parent="CUNTheme.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+<!--    <style name="CUNTheme.AsemiImmersedWithTranslucent" parent="CUNTheme.NoActionBar">-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--    </style>-->
 
-    <style name="CUNTheme.AsemiImmersedWithTransparent" parent="CUNTheme.NoActionBar">
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+<!--    <style name="CUNTheme.AsemiImmersedWithTransparent" parent="CUNTheme.NoActionBar">-->
+<!--        <item name="android:windowTranslucentStatus">false</item>-->
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+<!--    </style>-->
 
 </resources>

@@ -101,7 +101,7 @@ public class ConsumeInsetsFrameLayout extends FrameLayout {
     }
 
     public void removeOnInsetsChangeListener(@Nullable OnInsetsChangeListener listener) {
-        if (listener != null && mOnInsetsChangeListeners.contains(listener)) {
+        if (listener != null) {
             mOnInsetsChangeListeners.remove(listener);
         }
     }

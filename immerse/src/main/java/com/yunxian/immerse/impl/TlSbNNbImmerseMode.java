@@ -128,11 +128,11 @@ public class TlSbNNbImmerseMode implements IImmerseMode {
      *
      * @param activity Activity对象，不可为空
      * @return 状态栏
-     * @throws IllegalStateException
+     * @throws IllegalStateException 异常
      */
     @NonNull
     private View setupView(@NonNull Activity activity) throws IllegalStateException {
-        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentViewGroup = activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
         if (statusBarView != null) {

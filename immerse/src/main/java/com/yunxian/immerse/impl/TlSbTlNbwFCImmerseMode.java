@@ -51,8 +51,6 @@ public class TlSbTlNbwFCImmerseMode implements IImmerseMode {
     // 当一些手机没有导航栏时，该对象为空
     @Nullable
     private final View mCompatNavigationBarView;
-    @Nullable
-    private Rect mInsetsRect = null;
 
     public TlSbTlNbwFCImmerseMode(@NonNull Activity activity) {
         mActivityRef = new SoftReference<>(activity);
@@ -139,16 +137,13 @@ public class TlSbTlNbwFCImmerseMode implements IImmerseMode {
     @NonNull
     @Override
     public Rect getInsetsPadding() {
-        if (mInsetsRect == null) {
-            mInsetsRect = new Rect();
-
-            mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
-            if (mActivityConfig.hasNavigationBar()) {
-                if (mActivityConfig.isNavigationAtBottom()) {
-                    mInsetsRect.bottom = mActivityConfig.getNavigationBarHeight();
-                } else {
-                    mInsetsRect.right = mActivityConfig.getNavigationBarWidth();
-                }
+        Rect mInsetsRect = new Rect();
+        mInsetsRect.top = ImmerseGlobalConfig.getInstance().getStatusBarHeight();
+        if (mActivityConfig.hasNavigationBar()) {
+            if (mActivityConfig.isNavigationAtBottom()) {
+                mInsetsRect.bottom = mActivityConfig.getNavigationBarHeight();
+            } else {
+                mInsetsRect.right = mActivityConfig.getNavigationBarWidth();
             }
         }
         return mInsetsRect;
@@ -160,7 +155,7 @@ public class TlSbTlNbwFCImmerseMode implements IImmerseMode {
 
     @NonNull
     private Pair<View, View> setupView(@NonNull Activity activity) throws IllegalStateException {
-        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentViewGroup = activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
         View navigationBarView = contentViewGroup.findViewById(R.id.immerse_compat_navigation_bar);

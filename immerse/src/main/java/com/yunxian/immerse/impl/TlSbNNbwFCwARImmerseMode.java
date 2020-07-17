@@ -139,7 +139,7 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
 
     @NonNull
     private View setupView(@NonNull Activity activity, @NonNull ConsumeInsetsFrameLayout newUserViewGroup) {
-        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentViewGroup = activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
         if (statusBarView != null) {

@@ -157,10 +157,9 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
      * 配置Activity。主要配置Activity的用户视图对状态栏和导航栏的留白
      *
      * @param activity Activity对象，不可为空
-     * @throws IllegalStateException
      */
     private Pair<View, View> setupView(@NonNull Activity activity) throws IllegalStateException {
-        ViewGroup contentViewGroup = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentViewGroup = activity.findViewById(android.R.id.content);
 
         View statusBarView = contentViewGroup.findViewById(R.id.immerse_compat_status_bar);
         View navigationBarView = contentViewGroup.findViewById(R.id.immerse_compat_navigation_bar);

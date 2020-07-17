@@ -1,11 +1,11 @@
 package com.yunxian.immersemode.sample.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.TintTypedArray;
 
 import com.yunxian.immersemode.sample.R;
 
@@ -32,7 +32,7 @@ public class DynamicHeightFrameLayout extends FrameLayout {
     }
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable.DynamicHeightView, defStyleAttr, defStyleRes);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DynamicHeightView, defStyleAttr, defStyleRes);
         mHeightWidthRatio = Math.max(a.getFloat(R.styleable.DynamicHeightView_heightWidthRatio, 0), 0);
         a.recycle();
     }

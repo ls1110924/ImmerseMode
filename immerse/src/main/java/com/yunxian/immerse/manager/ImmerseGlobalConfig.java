@@ -38,7 +38,6 @@ public final class ImmerseGlobalConfig {
      * 获取单实例对象的方法
      *
      * @return Global单实例对象
-     * @throws IllegalStateException
      */
     @NonNull
     public static ImmerseGlobalConfig getInstance() throws IllegalStateException {
