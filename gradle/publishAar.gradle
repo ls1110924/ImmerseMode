@@ -1,0 +1,96 @@
+apply plugin: 'maven-publish'
+
+// 生成jar包的task，不需要修改。
+task androidSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+// 生成jarDoc的task，不需要修改。
+task androidJavadocs(type: Javadoc) {
+    title = "${PROJECT_NAME} ${project.version} API"
+    description "Generates Javadoc"
+    source = android.sourceSets.main.java.srcDirs
+    classpath += files(android.bootClasspath)
+    failOnError = false
+
+    android.libraryVariants.all { variant ->
+        if (variant.name == 'release') {
+            owner.classpath += variant.javaCompileProvider.get().classpath
+        }
+    }
+
+    exclude '**/R.html', '**/R.*.html', '**/index.html', '**/*.kt', '**/.gitkeep'
+
+    options {
+        windowTitle("${PROJECT_NAME} ${project.version} Reference")
+        locale = 'en_US'
+        encoding = 'UTF-8'
+        charSet = 'UTF-8'
+        links("http://docs.oracle.com/javase/7/docs/api/")
+        linksOffline("http://d.android.com/reference", "${android.sdkDirectory}/docs/reference")
+        setMemberLevel(JavadocMemberLevel.PUBLIC)
+    }
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+
+afterEvaluate {
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                artifact androidSourcesJar
+                artifact androidJavadocsJar
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = PROJECT_GROUP
+                artifactId = PROJECT_ARTIFACT_ID
+                version = PROJECT_VERSION
+
+                pom {
+                    name = PROJECT_DESCRIPTION
+                    description = PROJECT_DESCRIPTION
+                    url = PROJECT_WEBSITE
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = DEVELOPER_ID
+                            name = DEVELOPER_NAME
+                            email = DEVELOPER_EMAIL
+                        }
+                    }
+                    scm {
+                        connection = PROJECT_VCS
+                        developerConnection = PROJECT_VCS
+                        url = PROJECT_WEBSITE
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                url PROJECT_VERSION.endsWith('SNAPSHOT') ? ALIYUN_MAVEN_SNAPSHOT_URL : ALIYUN_MAVEN_URL
+                credentials {
+                    username ALIYUN_ACCOUNT
+                    password ALIYUN_PASSWORD
+                }
+            }
+        }
+    }
+
+}

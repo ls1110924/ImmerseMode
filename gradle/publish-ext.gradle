@@ -5,9 +5,12 @@
 
 ext {
 
+    ALIYUN_MAVEN_URL = 'https://packages.aliyun.com/maven/repository/2118004-release-mKUfMD/'
+    ALIYUN_MAVEN_SNAPSHOT_URL = 'https://packages.aliyun.com/maven/repository/2118004-snapshot-4mEf11/'
+
     PROJECT_GROUP = 'com.yunxian.android.lib'
 //    PROJECT_ARTIFACT_ID = ''
-    PROJECT_VERSION = '0.3.2'
+    PROJECT_VERSION = '0.3.3'
 
 //    PROJECT_PACKAGE = ''    // aar 或者 jar
 //    PROJECT_NAME = ''
@@ -21,11 +24,8 @@ ext {
     DEVELOPER_NAME = 'yunxian'
     DEVELOPER_EMAIL = 'ls1110924@gmail.com'
 
-    BINTRAY_USER = ''
-    BINTRAY_KEY = ''
-    BINTRAY_ORG = ''
-    BINTRAY_REPO = ''
-//    BINTRAY_NAME = ''
+    ALIYUN_ACCOUNT = ''
+    ALIYUN_PASSWORD = ''
 
 }
 

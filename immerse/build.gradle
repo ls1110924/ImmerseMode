@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
 
     resourcePrefix "immerse_"
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 29
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         versionCode 1
         versionName "0.0.1"
 
@@ -35,4 +35,4 @@ dependencies {
     api "androidx.core:core:${androidx}"
 }
 
-apply from: rootProject.file('./gradle/publish.gradle')
+apply from: rootProject.file('./gradle/publishAar.gradle')

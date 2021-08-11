@@ -2,7 +2,16 @@
 
 ext {
 
+    compileSdkVersion = 29
+    buildToolsVersion = "29.0.2"
+    minSdkVersion = 15
+    targetSdkVersion = 29
+
     // 基础
     androidx = '1.1.0'
+
+    // gradle plugin
+    gradle_plugin = '4.1.0'
+    maven_plugin = '2.1'
 
 }
