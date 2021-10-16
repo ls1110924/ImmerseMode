@@ -10,7 +10,7 @@ ext {
 
     PROJECT_GROUP = 'com.yunxian.android.lib'
 //    PROJECT_ARTIFACT_ID = ''
-    PROJECT_VERSION = '0.3.3'
+    PROJECT_VERSION = '0.3.4'
 
 //    PROJECT_PACKAGE = ''    // aar 或者 jar
 //    PROJECT_NAME = ''
