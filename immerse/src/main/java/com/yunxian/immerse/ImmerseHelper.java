@@ -10,7 +10,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.yunxian.immerse.enumeration.ImmerseType;
 import com.yunxian.immerse.impl.NormalImmerseMode;
 import com.yunxian.immerse.impl.TlSbNNbImmerseMode;
 import com.yunxian.immerse.impl.TlSbNNbwFCImmerseMode;
@@ -42,73 +41,68 @@ public final class ImmerseHelper {
     private final IImmerseMode immerseMode;
 
     public ImmerseHelper(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
-        this(activity, immerseConfiguration.mImmerseTypeInKK, immerseConfiguration.mImmerseTypeInL);
-    }
-
-    private ImmerseHelper(@NonNull Activity activity, @NonNull ImmerseType immerseTypeInKK,
-                          @NonNull ImmerseType immerseTypeInL) {
         if (SDK_INT < KITKAT) {
-            immerseMode = new NormalImmerseMode(activity);
+            immerseMode = new NormalImmerseMode(activity, immerseConfiguration);
         } else if (SDK_INT < LOLLIPOP) {
-            switch (immerseTypeInKK) {
+            switch (immerseConfiguration.mImmerseTypeInKK) {
                 case NSB_NNB:
-                    immerseMode = new NormalImmerseMode(activity);
+                    immerseMode = new NormalImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_NNB:
-                    immerseMode = new TlSbNNbImmerseMode(activity);
+                    immerseMode = new TlSbNNbImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_NNB_FC:
-                    immerseMode = new TlSbNNbwFCImmerseMode(activity);
+                    immerseMode = new TlSbNNbwFCImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_NNB_FC_AR:
-                    immerseMode = new TlSbNNbwFCwARImmerseMode(activity);
+                    immerseMode = new TlSbNNbwFCwARImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_TLNB:
-                    immerseMode = new TlSbTlNbImmerseMode(activity);
+                    immerseMode = new TlSbTlNbImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_TLNB_FC:
-                    immerseMode = new TlSbTlNbwFCImmerseMode(activity);
+                    immerseMode = new TlSbTlNbwFCImmerseMode(activity, immerseConfiguration);
                     break;
                 default:
-                    throw new IllegalAccessError(String.format(Locale.US, "Kitkat don't support %s mode!", immerseTypeInKK.toString()));
+                    throw new IllegalAccessError(String.format(Locale.US, "Kitkat don't support %s mode!", immerseConfiguration.mImmerseTypeInKK.toString()));
             }
         } else {
-            switch (immerseTypeInL) {
+            switch (immerseConfiguration.mImmerseTypeInL) {
                 case NSB_NNB:
-                    immerseMode = new NormalImmerseMode(activity);
+                    immerseMode = new NormalImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_NNB:
-                    immerseMode = new TlSbNNbImmerseMode(activity);
+                    immerseMode = new TlSbNNbImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_NNB_FC:
-                    immerseMode = new TlSbNNbwFCImmerseMode(activity);
+                    immerseMode = new TlSbNNbwFCImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_NNB_FC_AR:
-                    immerseMode = new TlSbNNbwFCwARImmerseMode(activity);
+                    immerseMode = new TlSbNNbwFCwARImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_TLNB:
-                    immerseMode = new TlSbTlNbImmerseMode(activity);
+                    immerseMode = new TlSbTlNbImmerseMode(activity, immerseConfiguration);
                     break;
                 case TLSB_TLNB_FC:
-                    immerseMode = new TlSbTlNbwFCImmerseMode(activity);
+                    immerseMode = new TlSbTlNbwFCImmerseMode(activity, immerseConfiguration);
                     break;
                 case TPSB_NNB:
-                    immerseMode = new TpSbNNbImmerseMode(activity);
+                    immerseMode = new TpSbNNbImmerseMode(activity, immerseConfiguration);
                     break;
                 case TPSB_NNB_FC:
-                    immerseMode = new TpSbNNbwFCImmerseMode(activity);
+                    immerseMode = new TpSbNNbwFCImmerseMode(activity, immerseConfiguration);
                     break;
                 case TPSB_NNB_FC_AR:
-                    immerseMode = new TpSbNNbwFCwARImmerseMode(activity);
+                    immerseMode = new TpSbNNbwFCwARImmerseMode(activity, immerseConfiguration);
                     break;
                 case TPSB_TLNB:
-                    immerseMode = new TpSbTlNbImmerseMode(activity);
+                    immerseMode = new TpSbTlNbImmerseMode(activity, immerseConfiguration);
                     break;
                 case TPSB_TLNB_FC:
-                    immerseMode = new TpSbTlNbwFCImmerseMode(activity);
+                    immerseMode = new TpSbTlNbwFCImmerseMode(activity, immerseConfiguration);
                     break;
                 default:
-                    throw new IllegalAccessError(String.format(Locale.US, "Lollipop don't support %s mode!", immerseTypeInKK.toString()));
+                    throw new IllegalAccessError(String.format(Locale.US, "Lollipop don't support %s mode!", immerseConfiguration.mImmerseTypeInL.toString()));
             }
         }
     }

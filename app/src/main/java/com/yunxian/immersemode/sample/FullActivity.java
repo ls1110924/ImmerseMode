@@ -23,7 +23,7 @@ import com.yunxian.immersemode.sample.widget.ExScrollView;
  */
 public class FullActivity extends AppCompatActivity {
 
-    private CommonCallbackListener mCommonListener = new CommonCallbackListener();
+    private final CommonCallbackListener mCommonListener = new CommonCallbackListener();
 
     private Toolbar mToolbar;
     private ImageView mImgHeader;

@@ -3,6 +3,8 @@ package com.yunxian.immerse.impl;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.view.View;
 import android.view.Window;
 
 import androidx.annotation.ColorInt;
@@ -12,11 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.ImmerseConfiguration;
+import com.yunxian.immerse.utils.ViewUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
-
-import java.lang.ref.SoftReference;
 
 import static android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -33,12 +34,10 @@ import static android.os.Build.VERSION.SDK_INT;
  * @email ls1110924@gmail.com
  * @date 17/1/23 上午9:52
  */
-public class NormalImmerseMode implements IImmerseMode {
+public class NormalImmerseMode extends AbsImmerseMode {
 
-    private final SoftReference<Activity> mActivityRef;
-
-    public NormalImmerseMode(@NonNull Activity activity) {
-        mActivityRef = new SoftReference<>(activity);
+    public NormalImmerseMode(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
+        super(activity, immerseConfiguration);
         Window window = activity.getWindow();
         if (SDK_INT >= KITKAT) {
             WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
@@ -47,13 +46,16 @@ public class NormalImmerseMode implements IImmerseMode {
         if (SDK_INT >= LOLLIPOP) {
             WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
+        if (immerseConfiguration.lightStatusBar && SDK_INT >= Build.VERSION_CODES.M) {
+            ViewUtils.addSystemUiFlags(window.getDecorView(), View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
     }
 
     @Override
     public void setStatusColor(@ColorInt int color) {
         Activity activity = mActivityRef.get();
         if (activity != null && SDK_INT >= LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(color);
+            activity.getWindow().setStatusBarColor(generateCompatStatusBarColor(color));
         }
     }
 

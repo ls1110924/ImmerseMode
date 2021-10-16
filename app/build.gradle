@@ -28,7 +28,7 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "androidx.appcompat:appcompat:${androidx}"
+    api "androidx.appcompat:appcompat:${appcompat}"
 
     api project(':immerse')
 }

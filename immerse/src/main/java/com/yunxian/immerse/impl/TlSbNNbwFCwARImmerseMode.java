@@ -17,14 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
+import com.yunxian.immerse.utils.ViewUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
-import java.lang.ref.SoftReference;
-
+import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -37,9 +37,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
  * @date 17/2/3 下午5:14
  */
 @TargetApi(KITKAT)
-public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
-
-    private final SoftReference<Activity> mActivityRef;
+public class TlSbNNbwFCwARImmerseMode extends AbsImmerseMode {
 
     private final ConsumeInsetsFrameLayout mNewUserViewGroup;
     // 兼容性StatusBar，模拟状态栏
@@ -48,12 +46,15 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
     @Nullable
     private Rect mInsetsRect = null;
 
-    public TlSbNNbwFCwARImmerseMode(@NonNull Activity activity) {
-        mActivityRef = new SoftReference<>(activity);
-
+    public TlSbNNbwFCwARImmerseMode(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
+        super(activity, immerseConfiguration);
         Window window = activity.getWindow();
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
+
+        if (immerseConfiguration.lightStatusBar && SDK_INT >= Build.VERSION_CODES.M) {
+            ViewUtils.addSystemUiFlags(window.getDecorView(), View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         mNewUserViewGroup = new ConsumeInsetsFrameLayout(activity);
         mCompatStatusBarView = setupView(activity, mNewUserViewGroup);
@@ -62,7 +63,7 @@ public class TlSbNNbwFCwARImmerseMode implements IImmerseMode {
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mCompatStatusBarView.setBackgroundColor(color);
+        mCompatStatusBarView.setBackgroundColor(generateCompatStatusBarColor(color));
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -16,14 +17,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 import com.yunxian.immerse.utils.DrawableUtils;
+import com.yunxian.immerse.utils.ViewUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
-
-import java.lang.ref.SoftReference;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.KITKAT;
@@ -39,21 +39,23 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
  * @date 17/1/31 下午3:17
  */
 @TargetApi(KITKAT)
-public class TlSbNNbwFCImmerseMode implements IImmerseMode {
-
-    private final SoftReference<Activity> mActivityRef;
+public class TlSbNNbwFCImmerseMode extends AbsImmerseMode {
 
     private final View mCompatStatusBarView;
 
     @Nullable
     private Rect mInsetsRect = null;
 
-    public TlSbNNbwFCImmerseMode(@NonNull Activity activity) {
-        mActivityRef = new SoftReference<>(activity);
+    public TlSbNNbwFCImmerseMode(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
+        super(activity, immerseConfiguration);
 
         Window window = activity.getWindow();
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
+
+        if (immerseConfiguration.lightStatusBar && SDK_INT >= Build.VERSION_CODES.M) {
+            ViewUtils.addSystemUiFlags(window.getDecorView(), View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         mCompatStatusBarView = setupView(activity);
         mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
@@ -61,7 +63,7 @@ public class TlSbNNbwFCImmerseMode implements IImmerseMode {
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mCompatStatusBarView.setBackgroundColor(color);
+        mCompatStatusBarView.setBackgroundColor(generateCompatStatusBarColor(color));
     }
 
     @Override

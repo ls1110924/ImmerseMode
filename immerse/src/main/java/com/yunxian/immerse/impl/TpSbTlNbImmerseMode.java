@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,16 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
-import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ActivityConfig;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
+import com.yunxian.immerse.utils.ViewUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
-import java.lang.ref.SoftReference;
-
+import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 import static android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -43,9 +42,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
  * @date 2017/2/2 17:54
  */
 @TargetApi(LOLLIPOP)
-public class TpSbTlNbImmerseMode implements IImmerseMode {
-
-    private final SoftReference<Activity> mActivityRef;
+    public class TpSbTlNbImmerseMode extends AbsImmerseMode {
 
     private final ActivityConfig mActivityConfig;
 
@@ -54,21 +51,24 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
     @Nullable
     private final View mCompatNavigationBarView;
 
-    public TpSbTlNbImmerseMode(@NonNull Activity activity) {
-        mActivityRef = new SoftReference<>(activity);
-
+    public TpSbTlNbImmerseMode(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
+        super(activity, immerseConfiguration);
         Window window = activity.getWindow();
         WindowUtils.clearWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
         WindowUtils.addWindowFlags(window, FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        window.getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        ViewUtils.addSystemUiFlags(window.getDecorView(), View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        if (immerseConfiguration.lightStatusBar && SDK_INT >= Build.VERSION_CODES.M) {
+            ViewUtils.addSystemUiFlags(window.getDecorView(), View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         mActivityConfig = new ActivityConfig(activity);
         Pair<View, View> viewPair = setupView(activity);
         mCompatStatusBarView = viewPair.first;
         mCompatNavigationBarView = viewPair.second;
 
+        assert mCompatStatusBarView != null;
         mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -76,7 +76,7 @@ public class TpSbTlNbImmerseMode implements IImmerseMode {
     public void setStatusColor(@ColorInt int color) {
         Activity activity = mActivityRef.get();
         if (activity != null) {
-            activity.getWindow().setStatusBarColor(color);
+            activity.getWindow().setStatusBarColor(generateCompatStatusBarColor(color));
             mCompatStatusBarView.setBackgroundColor(Color.TRANSPARENT);
         }
     }

@@ -1,5 +1,8 @@
 package com.yunxian.immerse;
 
+import android.graphics.Color;
+
+import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 
@@ -20,9 +23,19 @@ public final class ImmerseConfiguration {
     final ImmerseType mImmerseTypeInKK;
     final ImmerseType mImmerseTypeInL;
 
-    private ImmerseConfiguration(@NonNull ImmerseType immerseTypeInKK, @NonNull ImmerseType immerseTypeInL) {
+    public final boolean lightStatusBar;
+    public final boolean coverCompatMask;
+    public final int coverMaskColor;
+
+    private ImmerseConfiguration(@NonNull ImmerseType immerseTypeInKK,
+                                 @NonNull ImmerseType immerseTypeInL,
+                                 Builder builder) {
         this.mImmerseTypeInKK = immerseTypeInKK;
         this.mImmerseTypeInL = immerseTypeInL;
+
+        this.lightStatusBar = builder.lightStatusBar;
+        this.coverCompatMask = builder.coverCompatMask;
+        this.coverMaskColor = builder.coverMaskColor;
     }
 
     public static final int NORMAL = 1;
@@ -50,6 +63,10 @@ public final class ImmerseConfiguration {
         private int mNavigationBarModeInL = NORMAL;
         private boolean mFullScreenInL = false;
         private boolean mAdjustResizeInL = false;
+
+        private boolean lightStatusBar = false;
+        private boolean coverCompatMask = false;
+        private int coverMaskColor = Color.parseColor("#7F000000");
 
         public Builder() {
         }
@@ -94,6 +111,28 @@ public final class ImmerseConfiguration {
             return this;
         }
 
+        public Builder setLightStatusBar(boolean lightStatusBar) {
+            this.lightStatusBar = lightStatusBar;
+            return this;
+        }
+
+        /**
+         * 是否在状态栏上叠加一层蒙版，仅限大于等于5.0，小于6.0的系统<br>
+         * 因为5.0可以设置白色状态栏，6.0才可以修改状态栏图标颜色。<br>
+         * 在这两个版本之间，如果设置了浅色的状态栏，最好叠加一层半透明蒙版，负责图标可能看不清楚
+         *
+         * @param coverCompatMask true为叠加一层蒙版，false不叠加
+         */
+        public Builder setCoverCompatMask(boolean coverCompatMask) {
+            this.coverCompatMask = coverCompatMask;
+            return this;
+        }
+
+        public Builder setCoverMaskColor(@ColorInt int color) {
+            this.coverMaskColor = color;
+            return this;
+        }
+
         public ImmerseConfiguration build() {
             ImmerseType immerseTypeInKK;
             ImmerseType immerseTypeInL;
@@ -124,7 +163,7 @@ public final class ImmerseConfiguration {
                 immerseTypeInL = ImmerseType.NSB_NNB;
             }
 
-            return new ImmerseConfiguration(immerseTypeInKK, immerseTypeInL);
+            return new ImmerseConfiguration(immerseTypeInKK, immerseTypeInL, this);
         }
 
     }

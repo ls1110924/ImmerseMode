@@ -96,6 +96,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全透明状态栏+内容全屏+EditText AdjustResize" />
+
+            <Button
+                android:id="@+id/light_statusbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浅色系状态栏" />
         </LinearLayout>
     </ScrollView>
 

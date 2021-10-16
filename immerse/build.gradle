@@ -31,8 +31,8 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "androidx.annotation:annotation:${androidx}"
-    api "androidx.core:core:${androidx}"
+    api "androidx.annotation:annotation:${annotation}"
+    api "androidx.core:core:${core}"
 }
 
 apply from: rootProject.file('./gradle/publishAar.gradle')

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tpsb_tlnb_fc).setOnClickListener(mCommonListener);
         findViewById(R.id.tlsb_nnb_fc_ar).setOnClickListener(mCommonListener);
         findViewById(R.id.tpsb_nnb_fc_ar).setOnClickListener(mCommonListener);
+        findViewById(R.id.light_statusbar).setOnClickListener(mCommonListener);
     }
 
 
@@ -124,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putString("Mode", "TPSB_NNB_FC_AR");
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    break;
+                }
+                case R.id.light_statusbar: {
+                    startActivity(new Intent(MainActivity.this, LightStatusBarActivity.class));
                     break;
                 }
                 default:

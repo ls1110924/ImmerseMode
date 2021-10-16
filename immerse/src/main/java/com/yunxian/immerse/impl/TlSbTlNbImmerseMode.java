@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,16 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
-import com.yunxian.immerse.IImmerseMode;
+import com.yunxian.immerse.ImmerseConfiguration;
 import com.yunxian.immerse.R;
 import com.yunxian.immerse.manager.ActivityConfig;
 import com.yunxian.immerse.manager.ImmerseGlobalConfig;
 import com.yunxian.immerse.utils.DrawableUtils;
+import com.yunxian.immerse.utils.ViewUtils;
 import com.yunxian.immerse.utils.WindowUtils;
 import com.yunxian.immerse.widget.ConsumeInsetsFrameLayout;
 
-import java.lang.ref.SoftReference;
-
+import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -40,9 +41,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
  * @date 17/1/31 下午5:19
  */
 @TargetApi(KITKAT)
-public class TlSbTlNbImmerseMode implements IImmerseMode {
-
-    private final SoftReference<Activity> mActivityRef;
+public class TlSbTlNbImmerseMode extends AbsImmerseMode {
 
     private final ActivityConfig mActivityConfig;
 
@@ -51,12 +50,15 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
     @Nullable
     private final View mCompatNavigationBarView;
 
-    public TlSbTlNbImmerseMode(@NonNull Activity activity) {
-        mActivityRef = new SoftReference<>(activity);
-
+    public TlSbTlNbImmerseMode(@NonNull Activity activity, @NonNull ImmerseConfiguration immerseConfiguration) {
+        super(activity, immerseConfiguration);
         Window window = activity.getWindow();
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_STATUS);
         WindowUtils.addWindowFlags(window, FLAG_TRANSLUCENT_NAVIGATION);
+
+        if (immerseConfiguration.lightStatusBar && SDK_INT >= Build.VERSION_CODES.M) {
+            ViewUtils.addSystemUiFlags(window.getDecorView(), View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         mActivityConfig = new ActivityConfig(activity);
         Pair<View, View> viewPair = setupView(activity);
@@ -66,7 +68,7 @@ public class TlSbTlNbImmerseMode implements IImmerseMode {
 
     @Override
     public void setStatusColor(@ColorInt int color) {
-        mCompatStatusBarView.setBackgroundColor(color);
+        mCompatStatusBarView.setBackgroundColor(generateCompatStatusBarColor(color));
     }
 
     @Override
